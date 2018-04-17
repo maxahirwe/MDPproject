@@ -1,18 +1,25 @@
 package com.hillygeeks.mdpproject.DataClasses;
+
+import com.google.firebase.database.IgnoreExtraProperties;
+
+@IgnoreExtraProperties
 public class Vehicle {
     VehicleType Type;
-    String Model,Color;
+    String Maker,Color;
 
+    public Vehicle(){
+        // Default constructor required for calls to DataSnapshot.getValue(User.class)
+    }
 
-    public Vehicle(VehicleType type, String model, String color) {
+    public Vehicle(VehicleType type, String maker, String color) {
         Type = type;
-        Model = model;
+        Maker = maker;
         Color = color;
     }
 
-    public Vehicle(String model, String color) {
+    public Vehicle(String maker, String color) {
         this.Type=VehicleType.SEDAN;
-        Model = model;
+        Maker = maker;
         Color = color;
     }
 
@@ -24,12 +31,12 @@ public class Vehicle {
         Type = type;
     }
 
-    public String getModel() {
-        return Model;
+    public String getMaker() {
+        return Maker;
     }
 
-    public void setModel(String model) {
-        Model = model;
+    public void setMaker(String maker) {
+        Maker = maker;
     }
 
     public String getColor() {

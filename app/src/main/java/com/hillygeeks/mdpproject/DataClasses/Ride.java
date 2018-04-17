@@ -1,19 +1,26 @@
 package com.hillygeeks.mdpproject.DataClasses;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
 import java.time.LocalDateTime;
 
+@IgnoreExtraProperties
 public class Ride {
     Vehicle Vehicle;
     Location Origin, Destination;
-    LocalDateTime Time;
+    String DateTime;
     Boolean Returning, ShareCost;
     Integer Capacity;
 
-    public Ride(Vehicle vehicle, Location origin, Location destination, LocalDateTime time, Boolean returning, Boolean shareCost, Integer capacity) {
+    public Ride(){
+        // Default constructor required for calls to DataSnapshot.getValue(User.class)
+    }
+
+    public Ride(Vehicle vehicle, Location origin, Location destination, String datetime, Boolean returning, Boolean shareCost, Integer capacity) {
         Vehicle = vehicle;
         Origin = origin;
         Destination = destination;
-        Time = time;
+        DateTime = datetime;
         Returning = returning;
         ShareCost = shareCost;
         Capacity = capacity;
@@ -43,12 +50,12 @@ public class Ride {
         Destination = destination;
     }
 
-    public LocalDateTime getTime() {
-        return Time;
+    public String getDateTime() {
+        return DateTime;
     }
 
-    public void setTime(LocalDateTime time) {
-        Time = time;
+    public void setDateTime(String dateTime) {
+        DateTime = dateTime;
     }
 
     public Boolean getReturning() {
