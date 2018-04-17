@@ -117,6 +117,7 @@
         android:padding="10dp"
         android:text="@string/createaccount"
         android:textColor="@color/link"
-        android:textSize="17sp" />
+        android:textSize="17sp"
+        android:onClick="onRegister"/>
 
 </LinearLayout>
