@@ -2,47 +2,34 @@ package com.hillygeeks.mdpproject;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 public class RideShareActivity extends AppCompatActivity {
 
-    // Need to use the requirements of the objects for FragmentManager and FragmentTransaction;
-    FragmentManager fragmentManager;
-    FragmentTransaction fragmentTransaction;
+    private Toolbar toolbar;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ride_share);
 
-        // assign and get the object for the FragmentManager by using the below statements
-        fragmentManager = getFragmentManager();
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        //get the object for FragmentTransaction and Initialize the transaction
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.frame1,new FindRideFragment());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Commit the fragment transaction
-        fragmentTransaction.commit();
-    }
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), this);
+        viewPager.setAdapter(adapter);
 
-    public void onFindRide(View view) {
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame1,new FindRideFragment());
-        fragmentTransaction.commit();
-    }
-
-    public void onRequestRide(View view) {
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame1,new RequestRideFragment());
-        fragmentTransaction.commit();
-    }
-
-    public void onPostRide(View view) {
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame1,new PostRideFragment());
-        fragmentTransaction.commit();
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
     }
 }

@@ -1,77 +1,36 @@
 package com.hillygeeks.mdpproject.DataClasses;
 
-import java.time.LocalDateTime;
-
 public class Ride {
-    Vehicle Vehicle;
-    Location Origin, Destination;
-    LocalDateTime Time;
-    Boolean Returning, ShareCost;
-    Integer Capacity;
+    private String fromLocation;
+    private String toLocation;
+    private String description;
+    private User user;
 
-    public Ride(Vehicle vehicle, Location origin, Location destination, LocalDateTime time, Boolean returning, Boolean shareCost, Integer capacity) {
-        Vehicle = vehicle;
-        Origin = origin;
-        Destination = destination;
-        Time = time;
-        Returning = returning;
-        ShareCost = shareCost;
-        Capacity = capacity;
+
+    public Ride(final User user) {
+        this.user=user;
     }
 
-    public Vehicle getVehicle() {
-        return Vehicle;
+    public String getFromLocation() {
+        return fromLocation;
     }
 
-    public void setVehicle(Vehicle vehicle) {
-        Vehicle = vehicle;
+    public void setFromLocation(String fromLocation) {
+        this.fromLocation = fromLocation;
     }
 
-    public Location getOrigin() {
-        return Origin;
+    public String getToLocation() {
+        return toLocation;
     }
 
-    public void setOrigin(Location origin) {
-        Origin = origin;
+    public void setToLocation(String toLocation) {
+        this.toLocation = toLocation;
+    }
+    public String getDescription() {
+        return description;
     }
 
-    public Location getDestination() {
-        return Destination;
-    }
-
-    public void setDestination(Location destination) {
-        Destination = destination;
-    }
-
-    public LocalDateTime getTime() {
-        return Time;
-    }
-
-    public void setTime(LocalDateTime time) {
-        Time = time;
-    }
-
-    public Boolean getReturning() {
-        return Returning;
-    }
-
-    public void setReturning(Boolean returning) {
-        Returning = returning;
-    }
-
-    public Boolean getShareCost() {
-        return ShareCost;
-    }
-
-    public void setShareCost(Boolean shareCost) {
-        ShareCost = shareCost;
-    }
-
-    public Integer getCapacity() {
-        return Capacity;
-    }
-
-    public void setCapacity(Integer capacity) {
-        Capacity = capacity;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
