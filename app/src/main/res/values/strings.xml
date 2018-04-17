@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">MDPproject</string>
+    <string name="login_header">Ride Sharing</string>
+    <string name="login_btn">Sign in</string>
+    <string name="create_btn">Create Account</string>
+    <string name="register_header">Create your account</string>
+    <string name="pass_forgot">Forgot password ?</string>
+    <string name="noaccount">Don\'t have an account ?</string>
+    <string name="createaccount">Create a new account</string>
+    <string name="title_activity_register">RegisterActivity</string>
 </resources>
