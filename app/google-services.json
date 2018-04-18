@@ -1,35 +1,27 @@
 {
   "project_info": {
-    "project_number": "443236328554",
-    "firebase_url": "https://mdpproject-3281f.firebaseio.com",
-    "project_id": "mdpproject-3281f",
-    "storage_bucket": "mdpproject-3281f.appspot.com"
+    "project_number": "158999655182",
+    "firebase_url": "https://mdpproject-22077.firebaseio.com",
+    "project_id": "mdpproject-22077",
+    "storage_bucket": "mdpproject-22077.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:443236328554:android:c30cac72253ec083",
+        "mobilesdk_app_id": "1:158999655182:android:c30cac72253ec083",
         "android_client_info": {
           "package_name": "com.hillygeeks.mdpproject"
         }
       },
       "oauth_client": [
         {
-          "client_id": "443236328554-vmu280cahvhlmkuksnve18l37tu6p63s.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.hillygeeks.mdpproject",
-            "certificate_hash": "784fb91fe8977adf3132d651e6f14ba7255b46ca"
-          }
-        },
-        {
-          "client_id": "443236328554-utlnbhaf44e1kcism7ct8nonf68i9cq9.apps.googleusercontent.com",
+          "client_id": "158999655182-evh0h78ejf04c9ddlrudsuo82pqk23u5.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDUpD7XPWlU3_YnQUCk0Q3HVUQvevEyVmA"
+          "current_key": "AIzaSyCFJ020iIywUuwmyJWcUKWn11u-88ETIso"
         }
       ],
       "services": {
@@ -37,13 +29,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "443236328554-utlnbhaf44e1kcism7ct8nonf68i9cq9.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2
