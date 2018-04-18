@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,126 +7,180 @@
     android:padding="@dimen/activity_padding"
     tools:context=".RegisterRideFragment">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:gravity="center_horizontal"
-        android:text="@string/register_ride_header"
-        android:textSize="24sp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="2dp"
-        android:text="Vehicle" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/edittext"
-        android:orientation="horizontal">
-
-        <AutoCompleteTextView
-            android:id="@+id/txt_vehicle_type"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/edittext"
-            android:layout_marginBottom="2dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginRight="3dp"
-            android:layout_weight="1"
-            android:background="@drawable/shape"
-            android:hint="Type" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-        <AutoCompleteTextView
-            android:id="@+id/txt_vehicle_maker"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/edittext"
-            android:layout_marginBottom="2dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginRight="3dp"
-            android:layout_weight="1"
-            android:background="@drawable/shape"
-            android:hint="Ex:Toyota" />
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:gravity="center_horizontal"
+                android:text="@string/register_ride_header"
+                android:textSize="20sp" />
 
-        <EditText
-            android:id="@+id/txt_vehicle_color"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/edittext"
-            android:layout_marginBottom="2dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginRight="3dp"
-            android:layout_weight="1"
-            android:background="@drawable/shape"
-            android:hint="Ex:Red" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:text="Vehicle" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edittext"
+                android:orientation="horizontal">
 
-    </LinearLayout>
+                <AutoCompleteTextView
+                    android:id="@+id/txt_vehicle_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edittext"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape"
+                    android:hint="Type" />
 
+                <AutoCompleteTextView
+                    android:id="@+id/txt_vehicle_maker"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edittext"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape"
+                    android:hint="Ex:Toyota" />
 
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="2dp"
-        android:text="Origin*" />
-
-    <EditText
-        android:id="@+id/txt_origin"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/edittext"
-        android:layout_marginBottom="2dp"
-        android:background="@drawable/shape" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="2dp"
-        android:text="Destination*" />
-
-    <EditText
-        android:id="@+id/txt_destination"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/edittext"
-        android:layout_marginBottom="2dp"
-        android:background="@drawable/shape" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="2dp"
-        android:text="Capacity *" />
-
-    <EditText
-        android:id="@+id/txt_capacity"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/edittext"
-        android:layout_marginBottom="2dp"
-        android:background="@drawable/shape"
-        android:inputType="number"
-        android:text="1" />
-
-    <CheckBox
-        android:id="@+id/checkBox_returning"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Returning" />
-
-    <CheckBox
-        android:id="@+id/checkBox_sharecost"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Want to share cost" />
-
-    <Button
-        android:id="@+id/share_btn"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_marginBottom="30dp"
-        android:layout_marginTop="30dp"
-        android:background="@android:color/holo_blue_light"
-        android:text="Share"
-        android:textColor="@android:color/white" />
+                <EditText
+                    android:id="@+id/txt_vehicle_color"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edittext"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape"
+                    android:hint="Ex:Red" />
 
 
-</LinearLayout>
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:text="Origin*" />
+
+            <EditText
+                android:id="@+id/txt_origin"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edittext"
+                android:layout_marginBottom="2dp"
+                android:background="@drawable/shape" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:text="Destination*" />
+
+            <EditText
+                android:id="@+id/txt_destination"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edittext"
+                android:layout_marginBottom="2dp"
+                android:background="@drawable/shape" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:text="Capacity *" />
+
+            <EditText
+                android:id="@+id/txt_capacity"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edittext"
+                android:layout_marginBottom="2dp"
+                android:background="@drawable/shape"
+                android:inputType="number"
+                android:text="1" />
+
+            <CheckBox
+                android:id="@+id/checkBox_returning"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Returning" />
+
+            <CheckBox
+                android:id="@+id/checkBox_sharecost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Want to share cost" />
+
+            <LinearLayout
+                android:id="@+id/departure_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:text="Departure Date/Time*" />
+
+                <EditText
+                    android:id="@+id/datetime_departure_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edittext"
+                    android:layout_weight="0.8"
+                    android:background="@drawable/shape"
+                    android:focusable="false" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/returning_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:text="Returning Date/Time*" />
+
+                <EditText
+                    android:id="@+id/datetime_returning_txt"
+                    android:focusable="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edittext"
+                    android:layout_weight="0.8"
+                    android:background="@drawable/shape" />
+
+            </LinearLayout>
+
+
+
+            <Button
+                android:id="@+id/share_btn"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/holo_blue_light"
+                android:text="Share"
+                android:textColor="@android:color/white" />
+
+
+
+        </LinearLayout>
+
+</ScrollView>

@@ -1,6 +1,7 @@
 package com.hillygeeks.mdpproject;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -13,8 +14,14 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Switch;
 
+import com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker;
+import com.github.florent37.singledateandtimepicker.dialog.DoubleDateAndTimePickerDialog;
+import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.hillygeeks.mdpproject.DataClasses.Location;
@@ -24,6 +31,7 @@ import com.hillygeeks.mdpproject.DataClasses.VehicleType;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -37,10 +45,10 @@ public class RegisterRideFragment extends Fragment {
     }
 
     Button share_btn;
-
-    EditText vehicle_txt,origin_txt,destination_txt,capacity_txt;
+    EditText vehicle_txt,origin_txt,destination_txt,capacity_txt, datetime_departure_txt,datetime_returning_txt;
     AutoCompleteTextView vehicle_type_txt, vehicle_maker_txt;
     CheckBox checkBox_returning,checkBox_sharecost;
+    LinearLayout returning_time_layout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,7 +91,38 @@ public class RegisterRideFragment extends Fragment {
         checkBox_returning=view.findViewById(R.id.checkBox_returning);
         checkBox_sharecost=view.findViewById(R.id.checkBox_sharecost);
         share_btn=view.findViewById(R.id.share_btn);
+        returning_time_layout=view.findViewById(R.id.returning_time);
+        datetime_departure_txt =view.findViewById(R.id.datetime_departure_txt);
+        datetime_returning_txt =view.findViewById(R.id.datetime_returning_txt);
+        checkBox_returning.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(checkBox_returning.isChecked()){
+                    returning_time_layout.setVisibility(View.VISIBLE);
+                }
+                else{
+                    returning_time_layout.setVisibility(View.GONE);
+                }
+            }
+        });
 
+        View.OnClickListener date_time_click_listener= new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch(view.getId()){
+                    case R.id.datetime_departure_txt:
+                        DateTimePicker(view.getContext(),false);
+                        break;
+
+                    case R.id.datetime_returning_txt:
+                        DateTimePicker(view.getContext(),true);
+                        break;
+                }
+            }
+        };
+        datetime_departure_txt.setOnClickListener(date_time_click_listener);
+        datetime_returning_txt.setOnClickListener(date_time_click_listener);
+        datetime_departure_txt.setText(new SimpleDateFormat("MM-dd-yyyy HH:mm").format(new Date()));
         share_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,19 +147,45 @@ public class RegisterRideFragment extends Fragment {
                             Log.d("db status","data saved bruv");
                         }
                     });
-
                 }
                 else{
                     Application.ShowToast(getContext(),"Please Fill All Fields");
-
                 }
-
             }
         });
 
-//        mDatabase.child("users").child(userId).setValue(user);
+
         return view;
     }
 
+    public void seDateTime(View view){
+
+    }
+
+    public void DateTimePicker(Context ctx, final Boolean double_type) {
+
+        new SingleDateAndTimePickerDialog.Builder(ctx)
+                //.bottomSheet()
+                //.curved()
+                //.minutesStep(15)
+                //.displayHours(false)
+                //.displayMinutes(false)
+                //.todayText("aujourd'hui")
+                .mainColor(getResources().getColor(R.color.colorPrimary))
+                .mustBeOnFuture()
+                .title(double_type ? "Departure":"Returning")
+                .listener(new SingleDateAndTimePickerDialog.Listener() {
+                    @Override
+                    public void onDateSelected(Date date) {
+                        String choosetime=new SimpleDateFormat("MM-dd-yyyy HH:mm").format(date);
+                        if(double_type){
+                            datetime_returning_txt.setText(choosetime);
+                        }else{
+                            datetime_departure_txt.setText(choosetime);
+                        }
+                    }
+                }).display();
+
+    }
 
 }

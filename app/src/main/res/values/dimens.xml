@@ -1,5 +1,5 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="edittext">40dp</dimen>
-    <dimen name="activity_padding">35dp</dimen>
+    <dimen name="edittext">30dp</dimen>
+    <dimen name="activity_padding">25dp</dimen>
 </resources>

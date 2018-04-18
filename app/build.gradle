@@ -29,6 +29,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation 'com.google.firebase:firebase-core:12.0.1'
     implementation 'com.google.firebase:firebase-database:12.0.1'
+    implementation 'com.github.florent37:singledateandtimepicker:2.0.1'
     //    implementation 'com.android.support:animated-vector-drawable:27.1.0'
     //    implementation 'com.android.support:support-media-compat:26.1.0'
 }
