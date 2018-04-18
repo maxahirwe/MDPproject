@@ -28,6 +28,9 @@ import com.hillygeeks.mdpproject.DataClasses.Location;
 import com.hillygeeks.mdpproject.DataClasses.Ride;
 import com.hillygeeks.mdpproject.DataClasses.Vehicle;
 import com.hillygeeks.mdpproject.DataClasses.VehicleType;
+import com.seatgeek.placesautocomplete.OnPlaceSelectedListener;
+import com.seatgeek.placesautocomplete.PlacesAutocompleteTextView;
+import com.seatgeek.placesautocomplete.model.Place;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -43,9 +46,11 @@ public class RegisterRideFragment extends Fragment {
     public RegisterRideFragment() {
         // Required empty public constructor
     }
-
-    Button share_btn;
-    EditText vehicle_txt,origin_txt,destination_txt,capacity_txt, datetime_departure_txt,datetime_returning_txt;
+    int capacity=1;
+    Location location_origin,location_destination;
+    Button share_btn,capacity_plus_btn,capacity_minus_btn;
+    PlacesAutocompleteTextView origin_txt,destination_txt;
+    EditText vehicle_txt,capacity_txt, datetime_departure_txt,datetime_returning_txt;
     AutoCompleteTextView vehicle_type_txt, vehicle_maker_txt;
     CheckBox checkBox_returning,checkBox_sharecost;
     LinearLayout returning_time_layout;
@@ -55,7 +60,8 @@ public class RegisterRideFragment extends Fragment {
                              Bundle savedInstanceState)
     {
         // Inflate the layout for this fragment
-
+        location_origin=new Location();
+        location_destination=new Location();
         VehicleType vehicle_types[] = {VehicleType.SEDAN,VehicleType.MINIVAN,VehicleType.SUV,VehicleType.PICKUP};
         String[] car_makers = getResources().getStringArray(R.array.car_makers);
         ArrayAdapter<VehicleType> vehicle_type_adapter=new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1,vehicle_types);
@@ -86,11 +92,32 @@ public class RegisterRideFragment extends Fragment {
         });
 
         origin_txt=view.findViewById(R.id.txt_origin);
+
+        origin_txt.setOnPlaceSelectedListener(
+                new OnPlaceSelectedListener() {
+                    @Override
+                    public void onPlaceSelected(final Place place) {
+                        location_origin.setAddress(place.description);
+                    }
+                }
+        );
+
         destination_txt=view.findViewById(R.id.txt_destination);
+        destination_txt.setOnPlaceSelectedListener(
+                new OnPlaceSelectedListener() {
+                    @Override
+                    public void onPlaceSelected(final Place place) {
+                        location_destination.setAddress(place.description);
+                    }
+                }
+        );
         capacity_txt=view.findViewById(R.id.txt_capacity);
         checkBox_returning=view.findViewById(R.id.checkBox_returning);
         checkBox_sharecost=view.findViewById(R.id.checkBox_sharecost);
         share_btn=view.findViewById(R.id.share_btn);
+        capacity_minus_btn=view.findViewById(R.id.btn_capacity_minus);
+        capacity_plus_btn=view.findViewById(R.id.btn_capacity_plus);
+        setupCapacityBtns();
         returning_time_layout=view.findViewById(R.id.returning_time);
         datetime_departure_txt =view.findViewById(R.id.datetime_departure_txt);
         datetime_returning_txt =view.findViewById(R.id.datetime_returning_txt);
@@ -134,12 +161,10 @@ public class RegisterRideFragment extends Fragment {
                 capacity=capacity_txt.getText().toString();
                 if(!v_type.isEmpty() && !v_maker.isEmpty() && !origin.isEmpty() && !destination.isEmpty() & !capacity.isEmpty()){
                     Vehicle vehicle=new Vehicle(VehicleType.SEDAN,v_maker,"-");
-                    Location origin_location=new Location(origin);
-                    Location destination_location=new Location(destination);
                     String datetime=new SimpleDateFormat("MM-dd-yyyy HH:mm").format(new Date());
                     Boolean returning=checkBox_returning.isChecked();
                     Boolean sharecost=checkBox_sharecost.isChecked();
-                    Ride ride=new Ride(vehicle,origin_location,destination_location, datetime,returning,sharecost,Integer.valueOf(capacity));
+                    Ride ride=new Ride(vehicle,location_origin,location_destination, datetime,returning,sharecost,Integer.valueOf(capacity));
                     String key = Application.RidesRef.push().getKey();
                     Application.RidesRef.child(key).setValue(ride).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
@@ -158,7 +183,29 @@ public class RegisterRideFragment extends Fragment {
         return view;
     }
 
-    public void seDateTime(View view){
+    public void setupCapacityBtns(){
+        View.OnClickListener clicklistener= new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                capacityChange(view);
+            }
+        };
+        capacity_plus_btn.setOnClickListener(clicklistener);
+        capacity_minus_btn.setOnClickListener(clicklistener);
+    }
+
+    public void capacityChange(View view){
+        switch (view.getId()){
+            case R.id.btn_capacity_plus:
+                if(capacity<5) capacity=capacity+1;
+                break;
+            case R.id.btn_capacity_minus:
+               if(capacity>1) capacity=capacity-1;
+                break;
+
+        }
+        capacity_txt.setText(String.valueOf(capacity));
+
 
     }
 
