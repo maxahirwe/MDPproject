@@ -1,10 +1,13 @@
 package com.hillygeeks.mdpproject;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.widget.Switch;
+
+import com.hillygeeks.mdpproject.DataClasses.User;
 
 import static com.hillygeeks.mdpproject.ETabs.FIND_RIDE;
 
@@ -15,12 +18,13 @@ import static com.hillygeeks.mdpproject.ETabs.FIND_RIDE;
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     private ETabs tabs[]={FIND_RIDE, ETabs.POST_RIDE, ETabs.REQ_RIDE};
-    Context applicationContext;
+    Context context;
+    User user;
 
-
-    public ViewPagerAdapter(FragmentManager manager, Context applicationContext) {
+    public ViewPagerAdapter(FragmentManager manager, Context context) {
         super(manager);
-        this.applicationContext=applicationContext;
+        this.context=context;
+        this.user=user;
     }
 
     @Override
@@ -28,16 +32,23 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
         ETabs tab=ETabs.getTabFromInt(position);
 
+        Fragment fragment=null;
+
         switch (tab){
             case FIND_RIDE:
-                return new FindRideFragment();
+                 new FindRideFragment();
             case REQ_RIDE:
-                return new RequestRideFragment();
+                fragment = new RequestRideFragment();
             case POST_RIDE:
-                return new PostRideFragment();
+                fragment = new PostRideFragment();
         }
 
-        return null;
+        //Pass current user to fragment
+        Bundle bundle = new Bundle();
+        String keyCurrentUser=context.getResources().getString(R.string.keyCurrentUser);
+        bundle.putParcelable(keyCurrentUser, user);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Override

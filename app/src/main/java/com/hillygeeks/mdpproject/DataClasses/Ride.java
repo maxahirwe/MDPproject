@@ -6,6 +6,8 @@ public class Ride {
     private String description;
     private User user;
 
+    public Ride() {
+    }
 
     public Ride(final User user) {
         this.user=user;

@@ -8,5 +8,22 @@
     <string name="noaccount">Don\'t have an account ?</string>
     <string name="createaccount">Create a new account</string>
     <string name="title_activity_register">RegisterActivity</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="fmtDate">MM/dd/yyyy</string>
+    <string name="fmtTime">HH:mm:ss aa</string>
+    <string name="fmtDateTime">MM/dd/yyyy HH:mm:ss aa</string>
+
+    <string name="textview_from">From</string>
+    <string name="textview_to">To</string>
+    <string name="textview_dep_date">Departure Date</string>
+    <string name="textview_dep_time">Time</string>
+
+    <string name="keyCurrentUser">Key - Current User</string>
+
+
+    <string name="tblPostRides">tblPostRide</string>
+    <string name="textview_price">Price:</string>
+    <string name="textview_total_seats">Total Seats:</string>
+    <string name="textview_description">Description:</string>
 </resources>
