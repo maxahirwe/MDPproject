@@ -19,6 +19,7 @@ import com.google.firebase.FirebaseOptions;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import static android.text.TextUtils.isEmpty;
 
@@ -75,9 +76,8 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
      // Register a new email and password to Firebase Authentication
-    public void registerNewEmail(final String email, String password){
+    public void registerNewEmail(String email, String password){
         showDialog();
-
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -87,12 +87,55 @@ public class RegisterActivity extends AppCompatActivity {
                         if (task.isSuccessful()){
                             Log.d(TAG, "onComplete: AuthState: " + FirebaseAuth.getInstance().getCurrentUser().getUid());
                             Toast.makeText(RegisterActivity.this, "Account is created!", Toast.LENGTH_SHORT).show();
+
+                            // Send verification email
+                            sendVerificationEmail();
+
                             FirebaseAuth.getInstance().signOut();
+
+                            //redirect the user to the login screen
+                            redirectLoginScreen();
+                        }else {
+                            Toast.makeText(RegisterActivity.this, "Failed to sign up!", Toast.LENGTH_SHORT).show();
                         }
                         hideDialog();
-                        finish();
+
                     }
                 });
+    }
+
+    /**
+     * sends an email verification link to the user
+     */
+    private void sendVerificationEmail() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user != null) {
+            user.sendEmailVerification()
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(RegisterActivity.this, "Sent Verification Email", Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                Toast.makeText(RegisterActivity.this, "Couldn't Verification Send Email", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+        }
+
+    }
+
+    /**
+     * Redirects the user to the login screen
+     */
+    private void redirectLoginScreen(){
+        Log.d(TAG, "redirectLoginScreen: redirecting to login screen.");
+
+        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
      // verify if user enter invalid email address
