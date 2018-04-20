@@ -56,10 +56,7 @@ public class LoginActivity extends AppCompatActivity {
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if(task.isSuccessful()){
 
-                                        hideDialog();
-                                    }
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -73,14 +70,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-       /* TextView resendEmailVerification = (TextView) findViewById(R.id.resend_verification_email);
-        resendEmailVerification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ResendVerificationDialog dialog = new ResendVerificationDialog();
-                dialog.show(getSupportFragmentManager(), "dialog_resend_email_verification");
-            }
-        });*/
     hideSoftKeyboard();
     }
 
@@ -121,7 +110,9 @@ public class LoginActivity extends AppCompatActivity {
 
                     // Check if email is verified
                     if(user.isEmailVerified()){
-                        Toast.makeText(LoginActivity.this, "Authenticated with: " + user.getEmail(), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(LoginActivity.this, DummyHome.class);
+                        startActivity(intent);
+                        finish();
                     }else {
                         Toast.makeText(LoginActivity.this, "Email is not Verified\nCheck your Inbox", Toast.LENGTH_SHORT).show();
                         FirebaseAuth.getInstance().signOut();

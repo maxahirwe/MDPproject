@@ -67,9 +67,6 @@
                     android:text="@string/register"/>
 
             </RelativeLayout>
-
-
-
         </RelativeLayout>
     </ScrollView>
 
