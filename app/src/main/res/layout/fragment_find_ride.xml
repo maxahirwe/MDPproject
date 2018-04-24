@@ -1,14 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
     tools:context=".FindRideFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <!-- A RecyclerView with some commonly used attributes -->
+
+    <LinearLayout
+        android:id="@+id/filter_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            >
+
+            <EditText
+                android:id="@+id/txt_search_origin"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edittext"
+                android:layout_marginBottom="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_filter_shape"
+                android:gravity="center"
+                android:hint="From"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white" />
+
+            <EditText
+                android:id="@+id/txt_search_destination"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edittext"
+                android:layout_marginBottom="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_filter_shape"
+                android:gravity="center"
+                android:hint="To"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white" />
+
+            <EditText
+                android:id="@+id/txt_search_time"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edittext"
+                android:layout_marginBottom="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_filter_shape"
+                android:gravity="center"
+                android:hint="Date"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:focusable="false" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+
+            <CheckBox
+                android:id="@+id/checkBox_search_returning"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Returning"
+                android:textColor="@android:color/white"
+                android:theme="@style/checkBoxStyle" />
+
+            <CheckBox
+                android:id="@+id/checkBox_search_sharecost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Share cost"
+                android:textColor="@android:color/white"
+                android:theme="@style/checkBoxStyle" />
+
+            <Button
+                android:id="@+id/reset_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/colorPrimaryDark"
+                android:text="Reset"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/request_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/colorPrimaryDark"
+                android:text="Request"
+                android:textColor="@android:color/white" />
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/my_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Find Ride" />
+        android:scrollbars="vertical" />
 
-</FrameLayout>
+</LinearLayout>

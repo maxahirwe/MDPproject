@@ -26,6 +26,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.hillygeeks.mdpproject.DataClasses.Location;
 import com.hillygeeks.mdpproject.DataClasses.Ride;
+import com.hillygeeks.mdpproject.DataClasses.RideType;
 import com.hillygeeks.mdpproject.DataClasses.Vehicle;
 import com.hillygeeks.mdpproject.DataClasses.VehicleType;
 import com.seatgeek.placesautocomplete.OnPlaceSelectedListener;
@@ -164,12 +165,16 @@ public class RegisterRideFragment extends Fragment {
                     String datetime=new SimpleDateFormat("MM-dd-yyyy HH:mm").format(new Date());
                     Boolean returning=checkBox_returning.isChecked();
                     Boolean sharecost=checkBox_sharecost.isChecked();
+                    String provider="Username";
                     Ride ride=new Ride(vehicle,location_origin,location_destination, datetime,returning,sharecost,Integer.valueOf(capacity));
+                    ride.setProvider(provider);
+                    ride.setType(RideType.Offer);
                     String key = Application.RidesRef.push().getKey();
                     Application.RidesRef.child(key).setValue(ride).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             Log.d("db status","data saved bruv");
+                            Application.ShowToast(getContext(),"Ride Created");
                         }
                     });
                 }

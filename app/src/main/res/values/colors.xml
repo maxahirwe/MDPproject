@@ -2,6 +2,7 @@
 <resources>
     <color name="colorPrimary">#6081fa</color>
     <color name="colorPrimaryDark">#6081fa</color>
+    <color name="colorPrimaryDark_ride">#606081fa</color>
     <color name="colorAccent">#7e8fa9</color>
     <color name="link">#6081fa</color>
 </resources>

@@ -11,6 +11,9 @@ public class Ride {
     String DateTime;
     Boolean Returning, ShareCost;
     Integer Capacity;
+    String Provider;
+    RideType Type;
+
 
     public Ride(){
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
@@ -24,6 +27,7 @@ public class Ride {
         Returning = returning;
         ShareCost = shareCost;
         Capacity = capacity;
+        Type=RideType.Offer;
     }
 
     public Vehicle getVehicle() {
@@ -80,5 +84,20 @@ public class Ride {
 
     public void setCapacity(Integer capacity) {
         Capacity = capacity;
+    }
+    public String getProvider() {
+        return Provider;
+    }
+
+    public void setProvider(String provider) {
+        Provider = provider;
+    }
+
+    public RideType getType() {
+        return Type;
+    }
+
+    public void setType(RideType type) {
+        Type = type;
     }
 }
