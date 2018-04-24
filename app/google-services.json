@@ -1,5 +1,8 @@
 {
   "project_info": {
+    "project_number": "158999655182",
+    "firebase_url": "https://mdpproject-22077.firebaseio.com",
+    "project_id": "mdpproject-22077",
     "project_number": "157881612208",
     "firebase_url": "https://mdpproject-e6c55.firebaseio.com",
     "project_id": "mdpproject-e6c55",
@@ -8,6 +11,7 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:158999655182:android:c30cac72253ec083",
         "mobilesdk_app_id": "1:157881612208:android:c30cac72253ec083",
         "android_client_info": {
           "package_name": "com.hillygeeks.mdpproject"
@@ -15,6 +19,7 @@
       },
       "oauth_client": [
         {
+          "client_id": "158999655182-evh0h78ejf04c9ddlrudsuo82pqk23u5.apps.googleusercontent.com",
           "client_id": "157881612208-gfuukc27qeptvthl4ip4g8a5pu8qjkea.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -37,6 +42,7 @@
           "status": 1
         },
         "appinvite_service": {
+          "status": 1,
           "status": 2,
           "other_platform_oauth_client": [
             {
