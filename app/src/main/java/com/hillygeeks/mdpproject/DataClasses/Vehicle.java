@@ -6,7 +6,6 @@ import com.google.firebase.database.IgnoreExtraProperties;
 public class Vehicle {
     VehicleType Type;
     String Maker,Color;
-
     public Vehicle(){
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
