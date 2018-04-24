@@ -1,5 +1,5 @@
 package com.hillygeeks.mdpproject.DataClasses;
 
-enum VehicleType {
+public enum VehicleType {
     SEDAN,SUV,PICKUP,MINIVAN
 }
