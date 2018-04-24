@@ -110,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     // Check if email is verified
                     if(user.isEmailVerified()){
-                        Intent intent = new Intent(LoginActivity.this, DummyHome.class);
+                        Intent intent = new Intent(LoginActivity.this, RidesActivity.class);
                         startActivity(intent);
                         finish();
                     }else {
