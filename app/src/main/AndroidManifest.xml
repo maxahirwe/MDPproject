@@ -6,20 +6,28 @@
 
     <application
         android:allowBackup="true"
+        android:name=".Application"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity">
+        <activity android:name=".LoginActivity"/>
+        <activity android:name=".RegisterActivity" />
+        <activity
+            android:name=".RidesActivity"
+            android:label="Rides"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".DummyHome"></activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyC-ZHXyMbXzgBP_ch7XIdsoLh8LnJdv2bk"/>
+
     </application>
 
 </manifest>
