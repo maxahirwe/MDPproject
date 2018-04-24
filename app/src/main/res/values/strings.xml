@@ -3,7 +3,7 @@
     <string name="login_header">Ride Sharing</string>
     <string name="login_btn">Sign in</string>
     <string name="create_btn">Create Account</string>
-    <string name="register_header">Create your account</string>
+    <string name="register_ride_header">What\'s Your Ride Like?</string>
     <string name="pass_forgot">Forgot password ?</string>
     <string name="noaccount">Don\'t have an account ?</string>
     <string name="createaccount">Create a new account</string>
@@ -44,4 +44,93 @@
     <string name="current_password">Current Password</string>
     <string name="new_password">New Password</string>
     <string name="confirm_new_password">Confirm New Password</string>
+    <string name="fmtDate">MM/dd/yyyy</string>
+    <string name="fmtTime">HH:mm:ss aa</string>
+    <string name="fmtDateTime">MM/dd/yyyy HH:mm:ss aa</string>
+
+    <string name="textview_from">From</string>
+    <string name="textview_to">To</string>
+    <string name="textview_dep_date">Departure Date</string>
+    <string name="textview_dep_time">Time</string>
+
+    <string name="keyCurrentUser">Key - Current User</string>
+
+
+    <string name="textview_price">Price:</string>
+    <string name="textview_total_seats">Total Seats:</string>
+    <string name="textview_description">Description:</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="google_api"> AIzaSyC-ZHXyMbXzgBP_ch7XIdsoLh8LnJdv2bk</string>
+
+    <string-array name="car_makers">
+        <item>Alfa Romeo </item>
+        <item>Aston Martin </item>
+        <item>Audi</item>
+        <item>Bentley </item>
+        <item>Benz </item>
+        <item>BMW </item>
+        <item>Bugatti  </item>
+        <item>Cadillac </item>
+        <item>Chevrolet </item>
+        <item>Chrysler </item>
+        <item>Citroën </item>
+        <item>Corvette  </item>
+        <item>DAF </item>
+        <item>Dacia </item>
+        <item>Daewoo </item>
+        <item>Daihatsu </item>
+        <item>Datsun </item>
+        <item>De Lorean </item>
+        <item>Dino </item>
+        <item>Dodge  </item>
+        <item>Farboud </item>
+        <item>Ferrari </item>
+        <item>Fiat </item>
+        <item>Ford</item>
+        <item>Honda </item>
+        <item>Hummer </item>
+        <item>Hyundai</item>
+        <item>Jaguar </item>
+        <item>Jeep  </item>
+        <item>KIA </item>
+        <item>Koenigsegg  </item>
+        <item>Lada </item>
+        <item>Lamborghini </item>
+        <item>Lancia </item>
+        <item>Land Rover </item>
+        <item>Lexus </item>
+        <item>Ligier </item>
+        <item>Lincoln </item>
+        <item>Lotus  </item>
+        <item>Martini </item>
+        <item>Maserati </item>
+        <item>Maybach </item>
+        <item>Mazda </item>
+        <item>McLaren </item>
+        <item>Mercedes-Benz </item>
+        <item>Mini </item>
+        <item>Mitsubishi  </item>
+        <item>Nissan </item>
+        <item>Noble  </item>
+        <item>Opel  </item>
+        <item>Peugeot </item>
+        <item>Pontiac </item>
+        <item>Porsche  </item>
+        <item>Renault </item>
+        <item>Rolls-Royce  </item>
+        <item>Saab </item>
+        <item>Seat </item>
+        <item>Škoda </item>
+        <item>Smart </item>
+        <item>Spyker  </item>
+        <item>Subaru </item>
+        <item>Suzuki  </item>
+        <item>Toyota  </item>
+        <item>Vauxhall </item>
+        <item>Volkswagen </item>
+        <item>Volvo</item>
+    </string-array>
 </resources>
