@@ -12,19 +12,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RegisterActivity">
-        </activity>
-        <activity android:name=".RidesActivity" />
-        <activity
-            android:name=".LoginActivity"
-            android:label="Rides"
-            android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".RidesActivity"> </activity>
+
+        <service android:name=".MessagingService.NotificationReceiver">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyC-ZHXyMbXzgBP_ch7XIdsoLh8LnJdv2bk"/>

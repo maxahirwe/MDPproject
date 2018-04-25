@@ -131,4 +131,7 @@
         <item>Volkswagen </item>
         <item>Volvo</item>
     </string-array>
+
+    <string name="notificationAPI">https://fcm.googleapis.com/fcm/send</string>
+    <string name="serverKey">key=AAAAJMJ6N7A:APA91bGGwpQfeNcyB0OZxDHGeuWcgnYP_8L2mqNzuLsrkwMk_wULnUti9aTywRD1MgiyiTDOXr9_oZhPvhzbnme2CmQQLz58UzjHA05OgM3pu4QR463wFiZtP3vbQMmw23RnkCl7SRsS</string>
 </resources>
