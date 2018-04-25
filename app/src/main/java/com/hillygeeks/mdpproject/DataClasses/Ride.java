@@ -1,34 +1,48 @@
 package com.hillygeeks.mdpproject.DataClasses;
 
+import android.support.annotation.NonNull;
 import com.google.firebase.database.IgnoreExtraProperties;
 
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @IgnoreExtraProperties
-public class Ride {
+public class Ride implements Comparable<Ride> {
+    public String id;
     Vehicle Vehicle;
     Location Origin, Destination;
-    String DateTime;
-    Boolean Returning, ShareCost;
+    String Saved_dateTime;
+    String Depart_datetime;
+    String Return_datetime;
+    Boolean Returning, ShareCost,Booked;
     Integer Capacity;
-    String Provider;
+    String creator;
     RideType Type;
-    Boolean RideBooked; ///< This flag is responsible for holding information either the ride is booked or not (By default its false).
+    // the user id of the person getting the ride
+    String Client;
+    // the user id of the person offering the ride
+    String Provider;
+
 
 
     public Ride(){
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
-        RideBooked =false;
     }
 
-    public Ride(Vehicle vehicle, Location origin, Location destination, String datetime, Boolean returning, Boolean shareCost, Integer capacity) {
+    public Ride(Vehicle vehicle, Location origin, Location destination, String depart_datetime,String return_datetime, Boolean returning, Boolean shareCost, Integer capacity) {
         Vehicle = vehicle;
         Origin = origin;
         Destination = destination;
-        DateTime = datetime;
+        Saved_dateTime=new SimpleDateFormat("MM-dd-yyyy HH:mm").format(new Date());
+        Depart_datetime = depart_datetime;
+        Return_datetime = return_datetime;
         Returning = returning;
         ShareCost = shareCost;
         Capacity = capacity;
         Type=RideType.Offer;
-        RideBooked =false;
+        Booked=false;
     }
 
     public Vehicle getVehicle() {
@@ -55,12 +69,28 @@ public class Ride {
         Destination = destination;
     }
 
-    public String getDateTime() {
-        return DateTime;
+    public String getSaved_dateTime() {
+        return Saved_dateTime;
     }
 
-    public void setDateTime(String dateTime) {
-        DateTime = dateTime;
+    public void setSaved_dateTime(String saved_dateTime) {
+        Saved_dateTime = saved_dateTime;
+    }
+
+    public String getDepart_datetime() {
+        return Depart_datetime;
+    }
+
+    public void setDepart_datetime(String depart_datetime) {
+        Depart_datetime = depart_datetime;
+    }
+
+    public String getReturn_datetime() {
+        return Return_datetime;
+    }
+
+    public void setReturn_datetime(String return_datetime) {
+        Return_datetime = return_datetime;
     }
 
     public Boolean getReturning() {
@@ -86,12 +116,12 @@ public class Ride {
     public void setCapacity(Integer capacity) {
         Capacity = capacity;
     }
-    public String getProvider() {
-        return Provider;
+    public String getCreator() {
+        return creator;
     }
 
-    public void setProvider(String provider) {
-        Provider = provider;
+    public void setCreator(String creator) {
+        this.creator = creator;
     }
 
     public RideType getType() {
@@ -102,11 +132,61 @@ public class Ride {
         Type = type;
     }
 
-    public Boolean getRideBooked() {
-        return RideBooked;
+    public Boolean getBooked() {
+        return Booked;
     }
 
-    public void setRideBooked(Boolean rideBooked) {
-        RideBooked = rideBooked;
+    public void setBooked(Boolean booked) {
+        Booked = booked;
+    }
+
+    public String getClient() {
+        return Client;
+    }
+
+    public void setClient(String client) {
+        Client = client;
+    }
+
+    public String getProvider() {
+        return Provider;
+    }
+
+    public void setProvider(String provider) {
+        Provider = provider;
+    }
+
+    @Override
+    public String toString() {
+        return "Ride{" +
+                "id='" + id + '\'' +
+                ", Saved_dateTime='" + Saved_dateTime + '\'' +
+                ", Returning=" + Returning +
+                ", ShareCost=" + ShareCost +
+                '}';
+    }
+
+    @Override
+    public int compareTo(@NonNull Ride ride) {
+        SimpleDateFormat format=new SimpleDateFormat("MM-dd-yyyy HH:mm");
+        Date date1 = null;
+        Date date2 = null;
+        try {
+            date1 = format.parse(this.getSaved_dateTime());
+            date2 = format.parse( ride.getSaved_dateTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date1.compareTo(date2)*-1;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ride ride = (Ride) o;
+        return this.id.equalsIgnoreCase(ride.id);
+
     }
 }
+
