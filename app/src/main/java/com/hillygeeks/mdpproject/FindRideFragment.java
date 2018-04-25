@@ -251,7 +251,6 @@ public class FindRideFragment extends Fragment {
                     Log.d("duplicate data", "already in list ride:" + dataSnapshot.getKey());
                     mAdapter.setRides(Ridesset);
                     mAdapter.notifyDataSetChanged();
-
                 }
 
             }

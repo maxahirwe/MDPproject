@@ -82,17 +82,18 @@ public class RidesAdapter extends RecyclerView.Adapter<RidesAdapter.ViewHolder> 
             holder.btn_offer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //TODO:mark as booked,list as offered by this user and send notificationAa
+                    //TODO:mark as booked,list as offered by this user and send notification
                   OnCompleteListener<Void> completeListener=  new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             Log.d("data","Changed Value");
                         }
                     };
-
                    Application.RidesRef.child(ride.id).child("type").setValue(RideType.Booking).addOnCompleteListener(completeListener);
                    Application.RidesRef.child(ride.id).child("booked").setValue(true).addOnCompleteListener(completeListener);
                    Application.RidesRef.child(ride.id).child("provider").setValue(Application.username).addOnCompleteListener(completeListener);
+                   //Notification should be sent Herento the client
+
 
                 }
             });
@@ -113,6 +114,7 @@ public class RidesAdapter extends RecyclerView.Adapter<RidesAdapter.ViewHolder> 
                     Application.RidesRef.child(ride.id).child("type").setValue(RideType.Booking).addOnCompleteListener(completeListener);
                     Application.RidesRef.child(ride.id).child("booked").setValue(true).addOnCompleteListener(completeListener);
                     Application.RidesRef.child(ride.id).child("client").setValue(Application.username).addOnCompleteListener(completeListener);
+                    //Notification should be sent Here
 
 
                 }
