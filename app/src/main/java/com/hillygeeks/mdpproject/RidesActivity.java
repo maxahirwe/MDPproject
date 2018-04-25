@@ -1,5 +1,6 @@
 package com.hillygeeks.mdpproject;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 
 
@@ -13,6 +14,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.hillygeeks.mdpproject.DataClasses.RideType;
 
 import java.util.ArrayList;
@@ -28,10 +31,10 @@ public class RidesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rides);
-
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        toolbar.setSubtitle(Application.user.getEmail());
 
         viewPager = (ViewPager) findViewById(R.id.pager);
         setupViewPager(viewPager);
@@ -51,6 +54,10 @@ public class RidesActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId()==R.id.menu_main_logout){
             //TODO:: implement logout of user
+            FirebaseAuth.getInstance().signOut();
+            Intent intent=new Intent(getApplicationContext(),LoginActivity.class);
+            finish();
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
 

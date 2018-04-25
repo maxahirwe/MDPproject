@@ -137,11 +137,12 @@
         android:visibility="invisible" />
 
     <LinearLayout
+        android:id="@+id/button_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_margin="1dp"
         android:gravity="end"
-        android:layout_margin="1dp">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/btn_take_ride"
@@ -150,15 +151,16 @@
             android:layout_marginBottom="1dp"
             android:layout_marginLeft="2dp"
             android:layout_marginTop="1dp"
-            android:paddingTop="3dp"
+            android:background="@color/colorPrimaryDark"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
             android:paddingBottom="3dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:minHeight="0dp"
-            android:minWidth="0dp"
+            android:paddingTop="3dp"
             android:text="Take"
-            android:background="@color/colorPrimaryDark"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" />
+
         <Button
             android:id="@+id/btn_offer_ride"
             android:layout_width="wrap_content"
@@ -166,15 +168,15 @@
             android:layout_marginBottom="1dp"
             android:layout_marginLeft="2dp"
             android:layout_marginTop="1dp"
-            android:paddingTop="3dp"
+            android:background="@color/colorPrimaryDark"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
             android:paddingBottom="3dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:minHeight="0dp"
-            android:minWidth="0dp"
+            android:paddingTop="3dp"
             android:text="Offer"
-            android:background="@color/colorPrimaryDark"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" />
 
     </LinearLayout>
 

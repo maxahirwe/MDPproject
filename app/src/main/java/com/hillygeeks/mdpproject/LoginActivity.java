@@ -1,6 +1,7 @@
 package com.hillygeeks.mdpproject;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +20,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.hillygeeks.mdpproject.DataClasses.User;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
@@ -33,8 +36,9 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         mEmail = (EditText) findViewById(R.id.txt_email);
+        String saved_email=Application.sharedpreferences.getString("user_email","");
+        mEmail.setText(saved_email);
         mPassword = (EditText) findViewById(R.id.txt_pass);
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
 
@@ -107,9 +111,18 @@ public class LoginActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-
                     // Check if email is verified
                     if(user.isEmailVerified()){
+                        //set the user class
+                        //TODO set the firebase messaging id
+                        Application.user=new User(user.getEmail(), FirebaseInstanceId.getInstance().getToken());
+                        Application.user.userid=user.getUid();
+
+                        //save last email in sharedpreference
+                        SharedPreferences.Editor editor = Application.sharedpreferences.edit();
+                        editor.putString("user_email",user.getEmail());
+                        editor.commit();
+
                         Intent intent = new Intent(LoginActivity.this, RidesActivity.class);
                         startActivity(intent);
                         finish();

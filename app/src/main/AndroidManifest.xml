@@ -27,15 +27,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
-       <!-- <activity
-            android:name=".RidesActivity"
-            android:label="Rides"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>-->
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

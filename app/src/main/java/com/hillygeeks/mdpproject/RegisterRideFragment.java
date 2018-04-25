@@ -168,8 +168,8 @@ public class RegisterRideFragment extends Fragment {
                     Boolean returning=checkBox_returning.isChecked();
                     Boolean sharecost=checkBox_sharecost.isChecked();
                     Ride ride=new Ride(vehicle,location_origin,location_destination, depart_datetime,return_datetime,returning,sharecost,Integer.valueOf(capacity));
-                    ride.setCreator(Application.username);
-                    ride.setProvider(Application.username);
+                    ride.setCreator(Application.user.userid);
+                    ride.setProvider(Application.user.userid);
                     ride.setType(RideType.Offer);
                     String key = Application.RidesRef.push().getKey();
                     Application.RidesRef.child(key).setValue(ride).addOnCompleteListener(new OnCompleteListener<Void>() {
