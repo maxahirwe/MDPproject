@@ -47,6 +47,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:12.0.1'
 
     implementation 'com.github.florent37:singledateandtimepicker:2.0.1'
+    implementation 'com.google.firebase:firebase-messaging:12.0.1'
 //    implementation 'com.google.android.gms:play-services-location:12.0.1'
 //    implementation 'com.google.android.gms:play-services-maps:12.0.1'
 //    implementation 'com.google.android.gms:play-services-places:12.0.1'
