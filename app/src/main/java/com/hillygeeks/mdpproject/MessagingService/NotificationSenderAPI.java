@@ -16,18 +16,19 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class NotificationSenderAPI extends AsyncTask<String, Void, String> {
+public class NotificationSenderAPI extends AsyncTask<Void, Void, String> {
 
     Context context;
     Ride rideInfo;
     final String notificationSender="Notification Sender: ";
+
     NotificationSenderAPI(Context context, Ride rideInfo){
         this.context=context;
         this.rideInfo=rideInfo;
     }
 
     @Override
-    protected String doInBackground(String... strings) {
+    protected String doInBackground(Void... voids) {
         String response = "";
         try {
             URL url = new URL(context.getResources().getString(R.string.notificationAPI));

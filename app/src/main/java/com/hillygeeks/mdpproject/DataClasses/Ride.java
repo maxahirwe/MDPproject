@@ -2,8 +2,6 @@ package com.hillygeeks.mdpproject.DataClasses;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
-import java.time.LocalDateTime;
-
 @IgnoreExtraProperties
 public class Ride {
     Vehicle Vehicle;
@@ -13,10 +11,12 @@ public class Ride {
     Integer Capacity;
     String Provider;
     RideType Type;
+    Boolean RideBooked; ///< This flag is responsible for holding information either the ride is booked or not (By default its false).
 
 
     public Ride(){
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
+        RideBooked =false;
     }
 
     public Ride(Vehicle vehicle, Location origin, Location destination, String datetime, Boolean returning, Boolean shareCost, Integer capacity) {
@@ -28,6 +28,7 @@ public class Ride {
         ShareCost = shareCost;
         Capacity = capacity;
         Type=RideType.Offer;
+        RideBooked =false;
     }
 
     public Vehicle getVehicle() {
@@ -99,5 +100,13 @@ public class Ride {
 
     public void setType(RideType type) {
         Type = type;
+    }
+
+    public Boolean getRideBooked() {
+        return RideBooked;
+    }
+
+    public void setRideBooked(Boolean rideBooked) {
+        RideBooked = rideBooked;
     }
 }
