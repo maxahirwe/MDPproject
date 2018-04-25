@@ -3,7 +3,7 @@
     <color name="colorPrimary">#6081fa</color>
     <color name="colorPrimaryDark">#6081fa</color>
     <color name="colorPrimaryDark_ride">#606081fa</color>
-    <color name="colorAccent">#7e8fa9</color>
+    <color name="colorAccent">#9595ba</color>
     <color name="link">#6081fa</color>
     <color name="blue1">#66a3ff</color>
     <color name="blue2">#0033cc</color>
@@ -12,5 +12,4 @@
     <color name="blue3">#00c4cc</color>
     <color name="blue4">#00aab1</color>
     <color name="blue5">#007f85</color>
-
 </resources>

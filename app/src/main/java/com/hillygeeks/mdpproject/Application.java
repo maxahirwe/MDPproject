@@ -15,6 +15,10 @@ public class Application extends android.app.Application {
     static DatabaseReference RidesRef;
     static final int RIDES_LOAD=50;
     static Query RidesQuery;
+    static Query OfferedRidesQuery;
+    static Query RequestedidesQuery;
+    //TODO: anything that uniquely identifies a user
+    static String username="user_id";
 
     // Called when the application is starting, before any other application objects have been created.
     // Overriding this method is totally optional!
@@ -25,6 +29,8 @@ public class Application extends android.app.Application {
         database = FirebaseDatabase.getInstance();
         RidesRef = database.getReference("rides");
         RidesQuery=RidesRef.limitToLast(RIDES_LOAD);
+        OfferedRidesQuery=RidesRef.orderByChild("provider").equalTo(username);
+        RequestedidesQuery=RidesRef.orderByChild("client").equalTo(username);
     }
 
 

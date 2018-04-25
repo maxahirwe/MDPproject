@@ -42,7 +42,8 @@
                     android:layout_marginRight="3dp"
                     android:layout_weight="1"
                     android:background="@drawable/shape"
-                    android:hint="Type" />
+                    android:hint="Type"
+                    android:padding="@dimen/edittext_padding" />
 
                 <AutoCompleteTextView
                     android:id="@+id/txt_vehicle_maker"
@@ -53,7 +54,8 @@
                     android:layout_marginRight="3dp"
                     android:layout_weight="1"
                     android:background="@drawable/shape"
-                    android:hint="Ex:Toyota" />
+                    android:hint="Ex:Toyota"
+                    android:padding="@dimen/edittext_padding" />
 
                 <EditText
                     android:id="@+id/txt_vehicle_color"
@@ -64,7 +66,8 @@
                     android:layout_marginRight="3dp"
                     android:layout_weight="1"
                     android:background="@drawable/shape"
-                    android:hint="Ex:Red" />
+                    android:hint="Ex:Red"
+                    android:padding="@dimen/edittext_padding" />
 
 
             </LinearLayout>
@@ -98,7 +101,8 @@
                 android:layout_height="@dimen/edittext"
                 android:layout_marginBottom="2dp"
                 android:background="@drawable/shape"
-                app:pacv_googleMapsApiKey="@string/google_api"/>
+                android:padding="@dimen/edittext_padding"
+                app:pacv_googleMapsApiKey="@string/google_api" />
 
 
             <TextView
@@ -121,6 +125,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="+"
+                    android:minHeight="0dp"
+                    android:minWidth="0dp"
                     android:textStyle="bold" />
 
                 <EditText
@@ -133,6 +139,7 @@
                     android:focusable="false"
                     android:gravity="center"
                     android:inputType="number"
+                    android:padding="@dimen/edittext_padding"
                     android:text="1" />
 
                 <Button
@@ -141,6 +148,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="-"
+                    android:minHeight="0dp"
+                    android:minWidth="0dp"
                     android:textStyle="bold" />
 
 
@@ -177,7 +186,8 @@
                     android:layout_height="@dimen/edittext"
                     android:layout_weight="0.8"
                     android:background="@drawable/shape"
-                    android:focusable="false" />
+                    android:focusable="false"
+                    android:padding="@dimen/edittext_padding" />
 
             </LinearLayout>
 
@@ -196,11 +206,12 @@
 
                 <EditText
                     android:id="@+id/datetime_returning_txt"
-                    android:focusable="false"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/edittext"
                     android:layout_weight="0.8"
-                    android:background="@drawable/shape" />
+                    android:background="@drawable/shape"
+                    android:focusable="false"
+                    android:padding="@dimen/edittext_padding" />
 
             </LinearLayout>
 

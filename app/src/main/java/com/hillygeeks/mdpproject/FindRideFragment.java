@@ -2,6 +2,7 @@ package com.hillygeeks.mdpproject;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +19,8 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -41,16 +44,22 @@ public class FindRideFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private RidesAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    List<Ride> Ridesset =new ArrayList<>();
+    List<Ride> Ridesset;
     List<Ride> Rideset_filtered=new ArrayList<>();
     EditText search_origin,search_destination,search_datetime;
     CheckBox filter_returning,filter_share_cost;
     Button reset_filter_btn, request_btn;
-
+    RideType type;
 
 
     public FindRideFragment() {
         // Required empty public constructor
+    }
+
+    public static FindRideFragment newInstance (RideType type) {
+        FindRideFragment fragment = new FindRideFragment();
+        fragment.type=type;
+        return fragment;
     }
 
 
@@ -77,6 +86,9 @@ public class FindRideFragment extends Fragment {
         filter_share_cost=view.findViewById(R.id.checkBox_search_sharecost);
         reset_filter_btn =view.findViewById(R.id.reset_btn);
         request_btn =view.findViewById(R.id.request_btn);
+        if(type==RideType.Request || type==RideType.Booking){
+            request_btn.setVisibility(View.GONE);
+        }
         search_datetime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,15 +120,6 @@ public class FindRideFragment extends Fragment {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-//                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-//                recyclerView.setLayoutManager(linearLayoutManager);
-//
-//                int visibleItemCount = recyclerView.getChildCount();
-//                int totalItemCount = linearLayoutManager.getItemCount();
-//                int firstVisibleItem = linearLayoutManager.findFirstVisibleItemPosition();
-//                Log.d("recycle view","visible items"+String.valueOf(recyclerView.getChildCount()));
-//                Log.d("recycle view","totalItemCount"+String.valueOf(totalItemCount));
-//                Log.d("recycle view","first visible item"+String.valueOf(firstVisibleItem));
             }
         });
         mAdapter = new RidesAdapter(Ridesset);
@@ -146,14 +149,25 @@ public class FindRideFragment extends Fragment {
                 String datetime =search_datetime.getText().toString();
                 Boolean returning=filter_returning.isChecked();
                 Boolean sharecost=filter_share_cost.isChecked();
-                if (!(origin.isEmpty() && destination.isEmpty() && datetime.isEmpty())){
-                    //attempt tosave
-                    String provider="Username";
+                if (!origin.isEmpty() && !destination.isEmpty() && !datetime.isEmpty()){
                     Vehicle vehicle=new Vehicle();
                     vehicle.setType(VehicleType.SEDAN);
-                    Ride ride=new Ride(vehicle,location_origin,location_destination, datetime,returning,sharecost,1);
-                    ride.setProvider(provider);
-                    ride.setType(RideType.Offer);
+                    Ride ride=new Ride(vehicle,location_origin,location_destination, datetime,null,returning,sharecost,1);
+                    ride.setCreator(Application.username);
+                    ride.setClient(Application.username);
+                    ride.setType(RideType.Request);
+                    String key = Application.RidesRef.push().getKey();
+                    Application.RidesRef.child(key).setValue(ride).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Log.d("db status","Ride Saved");
+                            Application.ShowToast(getContext(),"Ride Request Created");
+                            search_destination.setText("");
+                            search_origin.setText("");
+                            search_datetime.setText("");
+                        }
+                    });
+
                 }
                 else{
                     Application.ShowToast(getContext(),"Please Fill All Fields To Request a Ride");
@@ -165,14 +179,20 @@ public class FindRideFragment extends Fragment {
         filter_returning.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                checkbox_filter(b,filter_share_cost.isChecked());
+                Rideset_filtered=checkbox_filter(b,filter_share_cost.isChecked());
+                mAdapter.setRides(Rideset_filtered);
+                mAdapter.notifyDataSetChanged();
+
+
             }
         });
 
         filter_share_cost.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                checkbox_filter(filter_returning.isChecked(),b);
+                Rideset_filtered=checkbox_filter(filter_returning.isChecked(),b);
+                mAdapter.setRides(Rideset_filtered);
+                mAdapter.notifyDataSetChanged();
             }
         });
 
@@ -190,39 +210,69 @@ public class FindRideFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                origin_destination_filter(search_origin.getText().toString(),search_destination.getText().toString());
-
+                String origin=search_origin.getText().toString();
+                String destination=search_destination.getText().toString();
+                String datetime=search_datetime.getText().toString();
+                Boolean returning=filter_returning.isChecked();
+                Boolean share_cost=filter_share_cost.isChecked();
+                if(origin.isEmpty() && destination.isEmpty() && datetime.isEmpty()) {
+                    Log.d("status","resetting dataset");
+                    resetRideset();
+                }else{
+                Rideset_filtered= filter_rides(origin,destination,datetime,returning,share_cost);
+                mAdapter.setRides(Rideset_filtered);
+                mAdapter.notifyDataSetChanged();
+                }
             }
         };
         search_origin.addTextChangedListener(search_queries_watcher);
         search_destination.addTextChangedListener(search_queries_watcher);
+        search_datetime.addTextChangedListener(search_queries_watcher);
 
         return view;
     }
 
 
     public void fetchRides(){
+        Ridesset=new ArrayList<>();
         ChildEventListener rides_data_listener=new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Log.d("new data", "onChildAdded:" + dataSnapshot.getKey());
                 // A new comment has been added, ad it to the displayed list
                 Ride ride = dataSnapshot.getValue(Ride.class);
-                Ridesset.add(ride);
-                Collections.reverse(Ridesset);
-                Log.d("app",ride.getVehicle().toString());
-                mAdapter.notifyDataSetChanged();
+                ride.id=dataSnapshot.getKey();
+                if (!Ridesset.contains(ride) && ride.getType()==type){
+                    Log.d("new data", "added onChildAdded:" + dataSnapshot.getKey());
+                    Ridesset.add(ride);
+                    Collections.sort(Ridesset);
+                    mAdapter.setRides(Ridesset);
+                    mAdapter.notifyDataSetChanged();
+                }else{
+                    Log.d("duplicate data", "already in list ride:" + dataSnapshot.getKey());
+                    mAdapter.setRides(Ridesset);
+                    mAdapter.notifyDataSetChanged();
+
+                }
 
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 // A comment has changed, use the key to determine if we are displaying this
-                // comment and if so displayed the changed comment.
                 Ride ride = dataSnapshot.getValue(Ride.class);
-                String ridetKey = dataSnapshot.getKey();
-                Ridesset.add(ride);
+                ride.id=dataSnapshot.getKey();
+                if (!Ridesset.contains(ride) && ride.getType()==type && !ride.getBooked()){
+                    Log.d("new data", "added onChildAdded:" + dataSnapshot.getKey());
+                    Ridesset.add(ride);
+                    Collections.sort(Ridesset);
+                    mAdapter.setRides(Ridesset);
+                    mAdapter.notifyDataSetChanged();
+                }else{
+                    Log.d("duplicate data", "already in list ride:" + dataSnapshot.getKey());
+                    mAdapter.setRides(Ridesset);
+                    mAdapter.notifyDataSetChanged();
 
+                }
             }
 
             @Override
@@ -244,78 +294,103 @@ public class FindRideFragment extends Fragment {
     }
 
 
-    public void dummyData(){
-        Vehicle vehicle=new Vehicle(VehicleType.SEDAN,"Toyota","-");
-        String datetime=new SimpleDateFormat("MM-dd-yyyy HH:mm").format(new Date());
-        Location location=new Location();
-        location.setAddress("Fairfield");
-        Location location1=new Location();
-        location1.setAddress("Chicago");
-        Boolean returning=true;
-        Boolean sharecost=false;
-        Ride ride=new Ride(vehicle,location,location1, datetime,returning,sharecost,1);
-        ride.setProvider("Max");
-        Ridesset.add(ride);
-        Ridesset.add(ride);
-        Ridesset.add(ride);
-    }
-
-
     public void resetRideset(){
         Ridesset=new ArrayList<>();
+        Rideset_filtered=new ArrayList<>();
         mAdapter.setRides(Ridesset);
+        mAdapter.notifyDataSetChanged();
         fetchRides();
     }
 
-    public void origin_destination_filter(String origin,String destination){
-        Rideset_filtered=new ArrayList<>();
-        if(!origin.isEmpty()){
+    public List<Ride> filter_rides(String origin, String destination, String date, boolean returning, boolean sharecost ){
+        List<Ride> Rideset_filtered=new ArrayList<>();
+        List<Ride> final_set=new ArrayList<>();
+        //when all fields are filled
+        if(!origin.isEmpty() && !destination.isEmpty() && !date.isEmpty()){
+            Log.d("status"," filter,all fields are filled");
+            for(Ride ride:copyRidesset()){
+                if(ride.getOrigin().getAddress().toLowerCase().contains(origin)
+                        && ride.getDestination().getAddress().toLowerCase().contains(destination)
+                        && ride.getDepart_datetime().toLowerCase().contains(date)){
+                    Rideset_filtered.add(ride);
+                }
+            }
+
+        }
+
+        //when origin and destination are the only filled field
+        else if(!origin.isEmpty() && !destination.isEmpty() && date.isEmpty()){
+            Log.d("status"," filter,destination and origin are filled");
+            for(Ride ride:copyRidesset()){
+                if(ride.getOrigin().getAddress().toLowerCase().contains(origin)
+                        && ride.getDestination().getAddress().toLowerCase().contains(destination) ){
+                    Rideset_filtered.add(ride);
+                }
+            }
+
+        }
+
+        //when only origin is the only filled field
+        else if(!origin.isEmpty() && destination.isEmpty() && date.isEmpty()){
+            Log.d("status"," filter,origin is filled");
             for(Ride ride:copyRidesset()){
                 if(ride.getOrigin().getAddress().toLowerCase().contains(origin)){
                     Rideset_filtered.add(ride);
                 }
             }
-            mAdapter.setRides(Rideset_filtered);
-            mAdapter.notifyDataSetChanged();
-
         }
-         if(!destination.isEmpty()){
+
+
+        //when destination is the only filled field
+        else if(origin.isEmpty() && !destination.isEmpty() && date.isEmpty()){
+            Log.d("status"," filter,destination is filled");
             for(Ride ride:copyRidesset()){
                 if(ride.getDestination().getAddress().toLowerCase().contains(destination)){
                     Rideset_filtered.add(ride);
                 }
             }
-            mAdapter.setRides(Rideset_filtered);
-            mAdapter.notifyDataSetChanged();
         }
 
-        if(origin.isEmpty() && destination.isEmpty()) {
-            Log.d("status","resetting dataset");
-            resetRideset();
+        //when date is the only filled field
+        else if(origin.isEmpty() && destination.isEmpty() && !date.isEmpty()){
+            Log.d("status"," filter,date is filled");
+            for(Ride ride:copyRidesset()){
+                if(ride.getDepart_datetime().toLowerCase().contains(date)){
+                    Rideset_filtered.add(ride);
+                }
+            }
         }
 
+        Log.d("filtering","filter size:"+Rideset_filtered.size());
+        List<Ride> to_checkbox_filter=null;
+        if (origin.isEmpty() && destination.isEmpty() && date.isEmpty()){
+            to_checkbox_filter=new ArrayList<>(Ridesset);
+            Log.d("filtering","no other filter size:"+Rideset_filtered.size());
+        }else{
+            to_checkbox_filter=new ArrayList<>(Rideset_filtered);
+        }
 
+        //filter based on checkboxes
+            for(Ride ride:to_checkbox_filter){
+                if(ride.getReturning()==returning && ride.getShareCost()==sharecost){
+                    Log.d("filtering","added:"+ride.toString());
+                    final_set.add(ride);
+                }
+            }
+
+
+        return final_set;
     }
 
 
 
-    public void checkbox_filter(final Boolean returning, Boolean sharecost){
+    public List<Ride> checkbox_filter(final Boolean returning, final Boolean sharecost){
         Log.d("status_filter","returning:"+returning);
         Log.d("status_filter","sharecost:"+sharecost);
-        if (returning || sharecost) {
-            Rideset_filtered=new ArrayList<>();
-            for(Ride ride:copyRidesset()){
-                if(ride.getReturning()==returning && ride.getShareCost()==sharecost){
-                    Rideset_filtered.add(ride);
-                }
-            }
-            mAdapter.setRides(Rideset_filtered);
-            mAdapter.notifyDataSetChanged();
-        }
-        else {
-            Log.d("status","resetting dataset");
-            resetRideset();
-        }
+        String origin=search_origin.getText().toString();
+        String destination=search_destination.getText().toString();
+        String datetime=search_datetime.getText().toString();
+        return filter_rides(origin,destination,datetime,returning,sharecost);
     }
 
     public List<Ride> copyRidesset(){

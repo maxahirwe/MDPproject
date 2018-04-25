@@ -20,8 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:layout_marginTop="5dp"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/txt_search_origin"
@@ -56,11 +55,11 @@
                 android:layout_marginBottom="2dp"
                 android:layout_weight="1"
                 android:background="@drawable/btn_filter_shape"
+                android:focusable="false"
                 android:gravity="center"
-                android:hint="Date"
+                android:hint="Depart"
                 android:textColor="@android:color/white"
-                android:textColorHint="@android:color/white"
-                android:focusable="false" />
+                android:textColorHint="@android:color/white" />
 
         </LinearLayout>
 
@@ -107,7 +106,6 @@
                 android:background="@color/colorPrimaryDark"
                 android:text="Request"
                 android:textColor="@android:color/white" />
-
 
 
         </LinearLayout>

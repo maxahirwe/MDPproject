@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
+import com.hillygeeks.mdpproject.DataClasses.RideType;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,9 +43,11 @@ public class RidesActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new FindRideFragment(), "Find");
-        adapter.addFragment(new OfferRideFragment(), "Offer");
+        adapter.addFragment(FindRideFragment.newInstance(RideType.Offer), "Find");
+        adapter.addFragment(FindRideFragment.newInstance(RideType.Request), "Offer");
         adapter.addFragment(new RegisterRideFragment(), "Share");
+        adapter.addFragment(FindRideFragment.newInstance(RideType.Booking), "Bookings");
+
         viewPager.setAdapter(adapter);
     }
 

@@ -17,10 +17,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Switch;
 
-import com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker;
-import com.github.florent37.singledateandtimepicker.dialog.DoubleDateAndTimePickerDialog;
 import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -35,7 +32,6 @@ import com.seatgeek.placesautocomplete.model.Place;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 
 /**
@@ -162,19 +158,27 @@ public class RegisterRideFragment extends Fragment {
                 capacity=capacity_txt.getText().toString();
                 if(!v_type.isEmpty() && !v_maker.isEmpty() && !origin.isEmpty() && !destination.isEmpty() & !capacity.isEmpty()){
                     Vehicle vehicle=new Vehicle(VehicleType.SEDAN,v_maker,"-");
-                    String datetime=new SimpleDateFormat("MM-dd-yyyy HH:mm").format(new Date());
+                    // Inflate the layout for this fragment
+                    location_origin=new Location();
+                    location_origin.setAddress(origin);
+                    location_destination=new Location();
+                    location_destination.setAddress(destination);
+                    String depart_datetime=datetime_departure_txt.getText().toString();
+                    String return_datetime=datetime_departure_txt.getText().toString();
                     Boolean returning=checkBox_returning.isChecked();
                     Boolean sharecost=checkBox_sharecost.isChecked();
-                    String provider="Username";
-                    Ride ride=new Ride(vehicle,location_origin,location_destination, datetime,returning,sharecost,Integer.valueOf(capacity));
-                    ride.setProvider(provider);
+                    Ride ride=new Ride(vehicle,location_origin,location_destination, depart_datetime,return_datetime,returning,sharecost,Integer.valueOf(capacity));
+                    ride.setCreator(Application.username);
+                    ride.setProvider(Application.username);
                     ride.setType(RideType.Offer);
                     String key = Application.RidesRef.push().getKey();
                     Application.RidesRef.child(key).setValue(ride).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            Log.d("db status","data saved bruv");
-                            Application.ShowToast(getContext(),"Ride Created");
+                            Log.d("db status","Ride Saved");
+                            Application.ShowToast(getContext(),"Ride Offer Created");
+                            datetime_departure_txt.setText("");
+                            datetime_returning_txt.setText("");
                         }
                     });
                 }
