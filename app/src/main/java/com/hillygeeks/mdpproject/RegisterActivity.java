@@ -1,6 +1,7 @@
 package com.hillygeeks.mdpproject;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +21,8 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.hillygeeks.mdpproject.DataClasses.User;
 
 import static android.text.TextUtils.isEmpty;
 
@@ -27,7 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
     private static final String TAG = "RegisterActivity";
 
     //widgets
-    private EditText mEmail, mPassword, mConfirmPassword;
+    private EditText mEmail,mName, mPhonenumber,mPassword, mConfirmPassword;
     private Button mRegister;
     private ProgressBar mProgressBar;
 
@@ -37,6 +40,8 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         mEmail = (EditText) findViewById(R.id.input_email);
+        mName= (EditText) findViewById(R.id.input_name);
+        mPhonenumber = (EditText) findViewById(R.id.input_phonenumber);
         mPassword = (EditText) findViewById(R.id.input_password);
         mConfirmPassword = (EditText) findViewById(R.id.input_confirm_password);
         mRegister = (Button) findViewById(R.id.btn_register);
@@ -54,12 +59,20 @@ public class RegisterActivity extends AppCompatActivity {
 
                     //check if user has a company email address
                     if(isValidDomain(mEmail.getText().toString())){
-
                         //check if passwords match
                         if(doStringsMatch(mPassword.getText().toString(), mConfirmPassword.getText().toString())){
-
-                            //Initiate registration task
-                            registerNewEmail(mEmail.getText().toString(), mPassword.getText().toString());
+                            if (mName.getText().toString().length()>2) {
+                                //check if phone number if correct
+                                if (mPhonenumber.getText().toString().length()>5) {
+                                    //Initiate registration task
+                                    registerNewEmail(mEmail.getText().toString(), mPassword.getText().toString(),mPhonenumber.getText().toString(),mName.getText().toString());
+                                }
+                                else {
+                                    Toast.makeText(RegisterActivity.this, "Input Proper Phone Number", Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                Toast.makeText(RegisterActivity.this, "Input Proper Name", Toast.LENGTH_SHORT).show();
+                            }
                         }else{
                             Toast.makeText(RegisterActivity.this, "Passwords do not Match", Toast.LENGTH_SHORT).show();
                         }
@@ -76,7 +89,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
      // Register a new email and password to Firebase Authentication
-    public void registerNewEmail(String email, String password){
+    public void registerNewEmail(final String email, String password, final String phonenumber, final String name){
         showDialog();
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -87,12 +100,24 @@ public class RegisterActivity extends AppCompatActivity {
                         if (task.isSuccessful()){
                             Log.d(TAG, "onComplete: AuthState: " + FirebaseAuth.getInstance().getCurrentUser().getUid());
                             Toast.makeText(RegisterActivity.this, "Account is created!", Toast.LENGTH_SHORT).show();
-
                             // Send verification email
                             sendVerificationEmail();
-
+                            String user_key=FirebaseAuth.getInstance().getCurrentUser().getUid();
+                            //TODO set the firebase messaging id
+                            User user=new User(email, FirebaseInstanceId.getInstance().getToken());
+                            user.setPhone(phonenumber);
+                            user.setName(name);
+                            Application.UsersRef.child(user_key).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Log.d("db status","User Saved");
+                                }
+                            });
+                            //save last email in sharedpreference
+                            SharedPreferences.Editor editor = Application.sharedpreferences.edit();
+                            editor.putString("user_email", email);
+                            editor.commit();
                             FirebaseAuth.getInstance().signOut();
-
                             //redirect the user to the login screen
                             redirectLoginScreen();
                         }else {

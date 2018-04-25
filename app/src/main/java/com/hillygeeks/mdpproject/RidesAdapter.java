@@ -12,8 +12,12 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.hillygeeks.mdpproject.DataClasses.Ride;
 import com.hillygeeks.mdpproject.DataClasses.RideType;
+import com.hillygeeks.mdpproject.DataClasses.User;
 
 import java.util.List;
 //https://github.com/codepath/android_guides/wiki/Endless-Scrolling-with-AdapterViews-and-RecyclerView
@@ -62,13 +66,29 @@ public class RidesAdapter extends RecyclerView.Adapter<RidesAdapter.ViewHolder> 
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         final Ride ride=Rides.get(position);
+        final User creator_user=new User();
+       Application.UsersRef.child(ride.getCreator()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                creator_user.setName(user.getName());
+                creator_user.setDevice_id(user.getDevice_id());
+                Log.d("user fetch","ride:"+ride.toString()+"user:"+user.toString());
+                holder.txt_provider.setText(creator_user.getName());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         holder.txt_created_datetime.setText(ride.getSaved_dateTime());
         holder.txt_depart_datetime.setText(ride.getDepart_datetime());
         holder.txt_origin.setText(ride.getOrigin().getAddress());
         holder.txt_destination.setText(ride.getDestination().getAddress());
-        holder.txt_provider.setText(ride.getCreator());
         if(ride.getShareCost()) { holder.txt_cost_sharing.setVisibility(View.VISIBLE);
-        }else{
+        }
+        else{
             holder.txt_cost_sharing.setVisibility(View.INVISIBLE);
         }
         if(ride.getReturning()){
@@ -91,7 +111,7 @@ public class RidesAdapter extends RecyclerView.Adapter<RidesAdapter.ViewHolder> 
                     };
                    Application.RidesRef.child(ride.id).child("type").setValue(RideType.Booking).addOnCompleteListener(completeListener);
                    Application.RidesRef.child(ride.id).child("booked").setValue(true).addOnCompleteListener(completeListener);
-                   Application.RidesRef.child(ride.id).child("provider").setValue(Application.username).addOnCompleteListener(completeListener);
+                   Application.RidesRef.child(ride.id).child("provider").setValue(Application.user.userid).addOnCompleteListener(completeListener);
                    //Notification should be sent Herento the client
 
 
@@ -113,7 +133,7 @@ public class RidesAdapter extends RecyclerView.Adapter<RidesAdapter.ViewHolder> 
                     };
                     Application.RidesRef.child(ride.id).child("type").setValue(RideType.Booking).addOnCompleteListener(completeListener);
                     Application.RidesRef.child(ride.id).child("booked").setValue(true).addOnCompleteListener(completeListener);
-                    Application.RidesRef.child(ride.id).child("client").setValue(Application.username).addOnCompleteListener(completeListener);
+                    Application.RidesRef.child(ride.id).child("client").setValue(Application.user.userid).addOnCompleteListener(completeListener);
                     //Notification should be sent Here
 
 

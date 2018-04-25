@@ -21,10 +21,22 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:gravity="center_horizontal"
         android:text="@string/login_header"
-        android:textSize="24sp" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        android:textSize="24sp"
+        app:fontFamily="cursive" />
+
+    <TextView
+        android:id="@+id/textEmailReg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
+        android:text="Sign in"
+        android:textSize="15sp" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -48,6 +60,7 @@
         android:layout_height="@dimen/edittext"
         android:layout_marginBottom="2dp"
         android:background="@drawable/shape"
+        android:padding="@dimen/edittext_padding"
         android:inputType="textEmailAddress" />
 
     <TextView
@@ -62,6 +75,7 @@
         android:layout_height="@dimen/edittext"
         android:layout_marginBottom="2dp"
         android:background="@drawable/shape"
+        android:padding="@dimen/edittext_padding"
         android:inputType="textPassword" />
 
     <TextView
@@ -134,10 +148,11 @@
     </ScrollView>
 
     <ProgressBar
-        android:layout_width="150dp"
-        android:layout_height="150dp"
         android:id="@+id/progressBar"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="120dp"
-        android:visibility="invisible"/>
+        android:visibility="invisible" />
+
+
 </LinearLayout>

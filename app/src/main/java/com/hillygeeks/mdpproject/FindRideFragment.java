@@ -153,8 +153,8 @@ public class FindRideFragment extends Fragment {
                     Vehicle vehicle=new Vehicle();
                     vehicle.setType(VehicleType.SEDAN);
                     Ride ride=new Ride(vehicle,location_origin,location_destination, datetime,null,returning,sharecost,1);
-                    ride.setCreator(Application.username);
-                    ride.setClient(Application.username);
+                    ride.setCreator(Application.user.userid);
+                    ride.setClient(Application.user.userid);
                     ride.setType(RideType.Request);
                     String key = Application.RidesRef.push().getKey();
                     Application.RidesRef.child(key).setValue(ride).addOnCompleteListener(new OnCompleteListener<Void>() {
