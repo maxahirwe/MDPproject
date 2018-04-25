@@ -13,9 +13,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".RegisterActivity" />
-        <activity
+        <activity android:name=".RidesActivity"> </activity>
+
+        <service android:name=".MessagingService.NotificationReceiver">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+       <!-- <activity
             android:name=".RidesActivity"
             android:label="Rides"
             android:theme="@style/AppTheme.NoActionBar">
@@ -23,8 +35,8 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>-->
 
-        </activity>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyC-ZHXyMbXzgBP_ch7XIdsoLh8LnJdv2bk"/>

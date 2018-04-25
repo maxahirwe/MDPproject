@@ -1,8 +1,8 @@
 package com.hillygeeks.mdpproject.DataClasses;
 
 import android.support.annotation.NonNull;
-
 import com.google.firebase.database.IgnoreExtraProperties;
+
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,6 +24,7 @@ public class Ride implements Comparable<Ride> {
     String Client;
     // the user id of the person offering the ride
     String Provider;
+
 
 
     public Ride(){
@@ -185,6 +186,7 @@ public class Ride implements Comparable<Ride> {
         if (o == null || getClass() != o.getClass()) return false;
         Ride ride = (Ride) o;
         return this.id.equalsIgnoreCase(ride.id);
+
     }
 }
 
