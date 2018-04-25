@@ -41,8 +41,9 @@ public class RidesActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new RegisterRideFragment(), "Share");
         adapter.addFragment(new FindRideFragment(), "Find");
+        adapter.addFragment(new OfferRideFragment(), "Offer");
+        adapter.addFragment(new RegisterRideFragment(), "Share");
         viewPager.setAdapter(adapter);
     }
 

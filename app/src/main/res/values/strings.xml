@@ -8,8 +8,6 @@
     <string name="noaccount">Don\'t have an account ?</string>
     <string name="createaccount">Create a new account</string>
     <string name="title_activity_register">RegisterActivity</string>
-
-
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
