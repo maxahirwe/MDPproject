@@ -1,10 +1,12 @@
 package com.hillygeeks.mdpproject.MessagingService;
 
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -41,7 +43,7 @@ public class NotificationReceiver extends FirebaseMessagingService {
         //Create a new intent
         Intent intent=new Intent(this, RidesActivity.class);
         Resources res=getResources();
-        if(rideInfo.get("rideType").equals(res.getString(R.string.rideRequester))) {
+        if(notificationPayload.getData().getRideType().equals(res.getString(R.string.rideRequester))) {
             intent.putExtra(res.getString(R.string.keyOpenAlertDlg), notificationPayload);
         }
 
@@ -73,6 +75,13 @@ public class NotificationReceiver extends FirebaseMessagingService {
 
         //Finally display notification
         NotificationManager notificationManager=(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String CHANNEL_ID = "my_channel_01";// The id of the channel.
+            CharSequence name = "Ride App";// The user-visible name of the channel.
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
+            notificationManager.createNotificationChannel(mChannel);
+        }
         notificationManager.notify(notificationId, notificationBuilder.build());
     }
 }

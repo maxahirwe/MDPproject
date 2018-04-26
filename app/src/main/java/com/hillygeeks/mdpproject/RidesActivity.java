@@ -137,6 +137,8 @@ public class RidesActivity extends AppCompatActivity {
                 String to=notificationPayload.getData().getFrom();
                 String from= FirebaseInstanceId.getInstance().getToken();
                 String rideType=getResources().getString(R.string.rideConformer);
+
+                //<<TODO: Update database, and mark ride as booked
                 Application.SendNotificaion(from, to, rideType, message, getApplicationContext());
                 finish();
             }
