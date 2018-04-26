@@ -133,7 +133,6 @@
     </string-array>
 
     <string name="keyOpenAlertDlg">Open Alert Dlg</string>
-    <string name="notificationMessage1">Some body wants to book your ride, do you want to continue?</string>
     <string name="notificationMessage2">Your ride is confirmed.</string>
     <string name="notificationMessage3">Requested ride is not available.</string>
     <string name="rideRequester">Ride Request</string>

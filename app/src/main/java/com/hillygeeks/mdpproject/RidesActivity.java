@@ -121,7 +121,8 @@ public class RidesActivity extends AppCompatActivity {
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
 
         builder.setTitle("Ride Request!");
-        builder.setMessage("Some body wants to book your ride, please confirm");
+        String message=notificationPayload.getData().getMessage()+", please confirm";
+        builder.setMessage(message);
         builder.setIcon(R.drawable.ride);
         AlertDialog.OnClickListener listener=new AlertDialog.OnClickListener(){
 

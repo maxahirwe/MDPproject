@@ -5,11 +5,11 @@ import android.os.Parcelable;
 
 public class NotificationData implements Parcelable {
     String From;
+    String To;
     String message;
     String rideType;
-    String To;
 
-    NotificationData(String from, String To,  String rideType, String message){
+    NotificationData(String from, String To, String message, String rideType){
         this.From =from;
         this.To=To;
         this.message=message;
@@ -35,13 +35,7 @@ public class NotificationData implements Parcelable {
         }
     };
 
-    public String getRideType() {
-        return rideType;
-    }
 
-    public void setRideType(String rideType) {
-        this.rideType = rideType;
-    }
 
     public String getFrom() {
         return From;
@@ -67,6 +61,14 @@ public class NotificationData implements Parcelable {
         To = to;
     }
 
+    public String getRideType() {
+        return rideType;
+    }
+
+    public void setRideType(String rideType) {
+        this.rideType = rideType;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -75,8 +77,9 @@ public class NotificationData implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(From);
+        parcel.writeString(To);
         parcel.writeString(message);
         parcel.writeString(rideType);
-        parcel.writeString(To);
+
     }
 }

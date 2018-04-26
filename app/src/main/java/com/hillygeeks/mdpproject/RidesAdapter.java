@@ -163,7 +163,7 @@ public class RidesAdapter extends RecyclerView.Adapter<RidesAdapter.ViewHolder> 
                             String from = FirebaseInstanceId.getInstance().getToken();
                             String to=user.getDevice_id();
                             String rideType = context.getResources().getString(R.string.rideRequester);
-                            String message=context.getResources().getString(R.string.notificationMessage1);
+                            String message=user.getName() + " wants to book your posted ride";
                             Application.SendNotificaion(from, to, rideType, message,  context);
 
                             //TODO: mark as booked,listed as given and send notification
