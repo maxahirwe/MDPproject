@@ -71,6 +71,7 @@ public class NotificationReceiver extends FirebaseMessagingService {
         notificationBuilder.setContentText(notificationMessage);
         notificationBuilder.setAutoCancel(true);
         notificationBuilder.setSmallIcon(R.drawable.ride);
+        notificationBuilder.setChannelId("my_channel_01");
         notificationBuilder.setContentIntent(pendingIntent);
 
         //Finally display notification

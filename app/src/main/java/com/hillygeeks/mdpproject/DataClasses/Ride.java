@@ -11,19 +11,19 @@ import java.util.Date;
 @IgnoreExtraProperties
 public class Ride implements Comparable<Ride> {
     public String id;
-    Vehicle Vehicle;
-    Location Origin, Destination;
-    String Saved_dateTime;
-    String Depart_datetime;
-    String Return_datetime;
-    Boolean Returning, ShareCost,Booked;
-    Integer Capacity;
+    Vehicle vehicle;
+    Location origin, destination;
+    String saved_dateTime;
+    String depart_datetime;
+    String return_datetime;
+    Boolean returning, shareCost, booked;
+    Integer capacity;
     String creator;
-    RideType Type;
+    RideType type;
     // the user id of the person getting the ride
-    String Client;
+    String client;
     // the user id of the person offering the ride
-    String Provider;
+    String provider;
 
 
 
@@ -32,89 +32,89 @@ public class Ride implements Comparable<Ride> {
     }
 
     public Ride(Vehicle vehicle, Location origin, Location destination, String depart_datetime,String return_datetime, Boolean returning, Boolean shareCost, Integer capacity) {
-        Vehicle = vehicle;
-        Origin = origin;
-        Destination = destination;
-        Saved_dateTime=new SimpleDateFormat("MM-dd-yyyy HH:mm").format(new Date());
-        Depart_datetime = depart_datetime;
-        Return_datetime = return_datetime;
-        Returning = returning;
-        ShareCost = shareCost;
-        Capacity = capacity;
-        Type=RideType.Offer;
-        Booked=false;
+        this.vehicle = vehicle;
+        this.origin = origin;
+        this.destination = destination;
+        this.saved_dateTime =new SimpleDateFormat("MM-dd-yyyy HH:mm").format(new Date());
+        this.depart_datetime = depart_datetime;
+        this.return_datetime = return_datetime;
+        this.returning = returning;
+        this.shareCost = shareCost;
+        this.capacity = capacity;
+        this.type =RideType.Offer;
+        this.booked=false;
     }
 
     public Vehicle getVehicle() {
-        return Vehicle;
+        return vehicle;
     }
 
     public void setVehicle(Vehicle vehicle) {
-        Vehicle = vehicle;
+        this.vehicle = vehicle;
     }
 
     public Location getOrigin() {
-        return Origin;
+        return origin;
     }
 
     public void setOrigin(Location origin) {
-        Origin = origin;
+        this.origin = origin;
     }
 
     public Location getDestination() {
-        return Destination;
+        return destination;
     }
 
     public void setDestination(Location destination) {
-        Destination = destination;
+        this.destination = destination;
     }
 
     public String getSaved_dateTime() {
-        return Saved_dateTime;
+        return saved_dateTime;
     }
 
     public void setSaved_dateTime(String saved_dateTime) {
-        Saved_dateTime = saved_dateTime;
+        this.saved_dateTime = saved_dateTime;
     }
 
     public String getDepart_datetime() {
-        return Depart_datetime;
+        return depart_datetime;
     }
 
     public void setDepart_datetime(String depart_datetime) {
-        Depart_datetime = depart_datetime;
+        this.depart_datetime = depart_datetime;
     }
 
     public String getReturn_datetime() {
-        return Return_datetime;
+        return return_datetime;
     }
 
     public void setReturn_datetime(String return_datetime) {
-        Return_datetime = return_datetime;
+        this.return_datetime = return_datetime;
     }
 
     public Boolean getReturning() {
-        return Returning;
+        return returning;
     }
 
     public void setReturning(Boolean returning) {
-        Returning = returning;
+        this.returning = returning;
     }
 
     public Boolean getShareCost() {
-        return ShareCost;
+        return shareCost;
     }
 
     public void setShareCost(Boolean shareCost) {
-        ShareCost = shareCost;
+        this.shareCost = shareCost;
     }
 
     public Integer getCapacity() {
-        return Capacity;
+        return capacity;
     }
 
     public void setCapacity(Integer capacity) {
-        Capacity = capacity;
+        this.capacity = capacity;
     }
     public String getCreator() {
         return creator;
@@ -125,44 +125,44 @@ public class Ride implements Comparable<Ride> {
     }
 
     public RideType getType() {
-        return Type;
+        return type;
     }
 
     public void setType(RideType type) {
-        Type = type;
+        this.type = type;
     }
 
     public Boolean getBooked() {
-        return Booked;
+        return booked;
     }
 
     public void setBooked(Boolean booked) {
-        Booked = booked;
+        this.booked = booked;
     }
 
     public String getClient() {
-        return Client;
+        return client;
     }
 
     public void setClient(String client) {
-        Client = client;
+        this.client = client;
     }
 
     public String getProvider() {
-        return Provider;
+        return provider;
     }
 
     public void setProvider(String provider) {
-        Provider = provider;
+        this.provider = provider;
     }
 
     @Override
     public String toString() {
         return "Ride{" +
                 "id='" + id + '\'' +
-                ", Saved_dateTime='" + Saved_dateTime + '\'' +
-                ", Returning=" + Returning +
-                ", ShareCost=" + ShareCost +
+                ", saved_dateTime='" + saved_dateTime + '\'' +
+                ", returning=" + returning +
+                ", shareCost=" + shareCost +
                 '}';
     }
 

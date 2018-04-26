@@ -4,45 +4,45 @@ import com.google.firebase.database.IgnoreExtraProperties;
 
 @IgnoreExtraProperties
 public class Vehicle {
-    VehicleType Type;
-    String Maker,Color;
+    VehicleType type;
+    String maker, color;
     public Vehicle(){
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
     public Vehicle(VehicleType type, String maker, String color) {
-        Type = type;
-        Maker = maker;
-        Color = color;
+        this.type = type;
+        this.maker = maker;
+        this.color = color;
     }
 
     public Vehicle(String maker, String color) {
-        this.Type=VehicleType.SEDAN;
-        Maker = maker;
-        Color = color;
+        this.type =VehicleType.SEDAN;
+        this.maker = maker;
+        this.color = color;
     }
 
     public VehicleType getType() {
-        return Type;
+        return type;
     }
 
     public void setType(VehicleType type) {
-        Type = type;
+        this.type = type;
     }
 
     public String getMaker() {
-        return Maker;
+        return maker;
     }
 
     public void setMaker(String maker) {
-        Maker = maker;
+        this.maker = maker;
     }
 
     public String getColor() {
-        return Color;
+        return color;
     }
 
     public void setColor(String color) {
-        Color = color;
+        this.color = color;
     }
 }
