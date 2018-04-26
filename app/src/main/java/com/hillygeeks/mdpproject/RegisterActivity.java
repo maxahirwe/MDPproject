@@ -86,15 +86,6 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
-
-        // Method to handle Forgot Password
-        TextView forgotPasswod = (TextView) findViewById(R.id.textView2);
-        forgotPasswod.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
         hideSoftKeyboard();
     }
 
@@ -110,6 +101,7 @@ public class RegisterActivity extends AppCompatActivity {
                         if (task.isSuccessful()){
                             Log.d(TAG, "onComplete: AuthState: " + FirebaseAuth.getInstance().getCurrentUser().getUid());
                             Toast.makeText(RegisterActivity.this, "Account is created!", Toast.LENGTH_SHORT).show();
+
                             // Send verification email
                             sendVerificationEmail();
                             String user_key=FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -122,6 +114,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     Log.d("db status","User Saved");
                                 }
                             });
+
                             //save last email in sharedpreference
                             SharedPreferences.Editor editor = Application.sharedpreferences.edit();
                             editor.putString("user_email", email);

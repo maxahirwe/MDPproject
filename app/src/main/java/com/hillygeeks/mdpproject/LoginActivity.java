@@ -25,6 +25,7 @@ import com.hillygeeks.mdpproject.DataClasses.User;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
+
     // Firebase
     private FirebaseAuth.AuthStateListener listener;
 
@@ -81,7 +82,6 @@ public class LoginActivity extends AppCompatActivity {
                 dialog.show(getSupportFragmentManager(), "dialog_password_reset");
             }
         });
-
     hideSoftKeyboard();
     }
 
@@ -111,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /*
-        ----------------------------- Firebase setup ---------------------------------
+        Firebase Setup
      */
     private void setupFirebaseAuth(){
         listener = new FirebaseAuth.AuthStateListener() {
@@ -121,6 +121,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (user != null) {
                     // Check if email is verified
                     if(user.isEmailVerified()){
+
                         //set the user class
                         Application.user=new User(user.getEmail(), FirebaseInstanceId.getInstance().getToken());
                         Application.user.userid=user.getUid();
@@ -138,10 +139,10 @@ public class LoginActivity extends AppCompatActivity {
                         FirebaseAuth.getInstance().signOut();
                     }
                 } else {
+
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
-                // ...
             }
         };
     }
