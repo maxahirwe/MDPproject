@@ -139,5 +139,5 @@
     <string name="rideRequester">Ride Request</string>
     <string name="rideConformer">Ride Conformer</string>
     <string name="notificationAPI">https://fcm.googleapis.com/fcm/send</string>
-    <string name="serverKey">key=AAAAJMJ6N7A:APA91bGGwpQfeNcyB0OZxDHGeuWcgnYP_8L2mqNzuLsrkwMk_wULnUti9aTywRD1MgiyiTDOXr9_oZhPvhzbnme2CmQQLz58UzjHA05OgM3pu4QR463wFiZtP3vbQMmw23RnkCl7SRsS</string>
+    <string name="serverKey">key=AAAAZzLxpGo:APA91bHU4VMLthConrtPEheq5nxoC8fYanbPP-OyFJOOEb14erCYJ4dDVzE__sFCeSPKOhS0FXrn51xVOn-uSmgNnmw4Yob8NL28tmxDO9KNpfqfIqC9O0Zf6FcECC1oTf3LEx4_D7hz</string>
 </resources>
