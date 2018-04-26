@@ -103,7 +103,6 @@ public class RegisterActivity extends AppCompatActivity {
                             // Send verification email
                             sendVerificationEmail();
                             String user_key=FirebaseAuth.getInstance().getCurrentUser().getUid();
-                            //TODO set the firebase messaging id
                             User user=new User(email, FirebaseInstanceId.getInstance().getToken());
                             user.setPhone(phonenumber);
                             user.setName(name);

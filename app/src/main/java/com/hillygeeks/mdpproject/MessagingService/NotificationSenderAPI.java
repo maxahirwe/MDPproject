@@ -19,10 +19,10 @@ import javax.net.ssl.HttpsURLConnection;
 public class NotificationSenderAPI extends AsyncTask<Void, Void, String> {
 
     Context context;
-    Ride rideInfo;
+    NotificationPayload rideInfo;
     final String notificationSender="Notification Sender: ";
 
-    NotificationSenderAPI(Context context, Ride rideInfo){
+    public NotificationSenderAPI(Context context, NotificationPayload rideInfo){
         this.context=context;
         this.rideInfo=rideInfo;
     }

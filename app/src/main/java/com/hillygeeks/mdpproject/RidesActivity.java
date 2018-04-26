@@ -1,5 +1,6 @@
 package com.hillygeeks.mdpproject;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 
@@ -8,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -15,8 +17,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.hillygeeks.mdpproject.DataClasses.RideType;
+import com.hillygeeks.mdpproject.MessagingService.NotificationPayload;
+import com.hillygeeks.mdpproject.MessagingService.NotificationSenderAPI;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +30,7 @@ public class RidesActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    NotificationPayload notificationPayload;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +46,16 @@ public class RidesActivity extends AppCompatActivity {
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+
+        Intent intent = getIntent();
+        if (intent == null)
+            return;
+
+        notificationPayload = intent.getParcelableExtra(getResources().getString(R.string.keyOpenAlertDlg));
+        if (notificationPayload == null)
+            return;
+
+        displayRideConfirmationDialog();
     }
 
     @Override
@@ -53,7 +68,6 @@ public class RidesActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId()==R.id.menu_main_logout){
-            //TODO:: implement logout of user
             FirebaseAuth.getInstance().signOut();
             Intent intent=new Intent(getApplicationContext(),LoginActivity.class);
             finish();
@@ -100,5 +114,35 @@ public class RidesActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
+    }
+
+    public void displayRideConfirmationDialog(){
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+
+        builder.setTitle("Ride Request!");
+        String message=notificationPayload.getData().getMessage()+", please confirm";
+        builder.setMessage(message);
+        builder.setIcon(R.drawable.ride);
+        AlertDialog.OnClickListener listener=new AlertDialog.OnClickListener(){
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                String message="";
+                if(which==dialog.BUTTON_POSITIVE)
+                    message=getResources().getString(R.string.notificationMessage2);
+                else if(which==dialog.BUTTON_NEGATIVE)
+                    message=getResources().getString(R.string.notificationMessage3);
+
+                String to=notificationPayload.getData().getFrom();
+                String from= FirebaseInstanceId.getInstance().getToken();
+                String rideType=getResources().getString(R.string.rideConformer);
+                Application.SendNotificaion(from, to, rideType, message, getApplicationContext());
+                finish();
+            }
+        };
+        builder.setPositiveButton("Yes", listener);
+        builder.setNegativeButton("No", listener);
+        builder.show();
     }
 }

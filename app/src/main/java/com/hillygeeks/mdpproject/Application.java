@@ -10,7 +10,10 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.hillygeeks.mdpproject.DataClasses.User;
+import com.hillygeeks.mdpproject.MessagingService.NotificationPayload;
+import com.hillygeeks.mdpproject.MessagingService.NotificationSenderAPI;
 
 public class Application extends android.app.Application {
     static FirebaseDatabase database ;
@@ -43,6 +46,17 @@ public class Application extends android.app.Application {
 
     public static void ShowToast(Context ctx, String msg){
         Toast.makeText(ctx,msg,Toast.LENGTH_SHORT).show();
+    }
+
+    public static void SendNotificaion(String from,String to,String rideType,String message,Context ctx){
+        NotificationPayload requestRidePayload=new NotificationPayload(
+                from,
+                to,
+                rideType,
+                message);
+
+        NotificationSenderAPI notificationSenderAPI=new NotificationSenderAPI(ctx, requestRidePayload);
+        notificationSenderAPI.execute();
     }
 
 
