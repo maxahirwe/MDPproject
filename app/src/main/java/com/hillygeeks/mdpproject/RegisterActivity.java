@@ -86,6 +86,14 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
+        TextView resend = (TextView) findViewById(R.id.resnd_verification);
+        resend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ResendVerificationDialog dialog = new ResendVerificationDialog();
+                dialog.show(getSupportFragmentManager(), "dialog_password_reset");
+            }
+        });
         hideSoftKeyboard();
     }
 
