@@ -33,10 +33,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
         android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
         android:text="Sign in"
-        android:textSize="34sp" />
+        android:textSize="14sp" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -93,7 +93,7 @@
         android:layout_height="35dp"
         android:layout_marginBottom="30dp"
         android:layout_marginTop="30dp"
-        android:background="@drawable/blue_button"
+        android:background="@drawable/btn_shape"
         android:text="@string/login_btn"
         android:textColor="@android:color/white" />
 
@@ -136,7 +136,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autoLink="all"
-        android:background="@drawable/blue_button"
+        android:background="@drawable/shape"
         android:clickable="true"
         android:gravity="center"
         android:padding="10dp"
