@@ -34,8 +34,8 @@ public class RidesActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        toolbar.setSubtitle(Application.user.getEmail());
-
+        String name=Application.sharedpreferences.getString("user_name","-"+"");
+        toolbar.setSubtitle(Application.user.getEmail()+name);
         viewPager = (ViewPager) findViewById(R.id.pager);
         setupViewPager(viewPager);
 

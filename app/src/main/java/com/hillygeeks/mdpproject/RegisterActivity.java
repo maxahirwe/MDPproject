@@ -116,6 +116,7 @@ public class RegisterActivity extends AppCompatActivity {
                             //save last email in sharedpreference
                             SharedPreferences.Editor editor = Application.sharedpreferences.edit();
                             editor.putString("user_email", email);
+                            editor.putString("user_name", user.getName());
                             editor.commit();
                             FirebaseAuth.getInstance().signOut();
                             //redirect the user to the login screen
