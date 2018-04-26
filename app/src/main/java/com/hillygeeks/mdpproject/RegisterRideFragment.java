@@ -151,13 +151,14 @@ public class RegisterRideFragment extends Fragment {
         share_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String v_type,v_maker,origin,destination,capacity;
+                String v_type,v_maker,origin,destination,capacity,departtime;
                 v_type=vehicle_type_txt.getText().toString();
                 v_maker=vehicle_maker_txt.getText().toString();
                 origin=origin_txt.getText().toString();
                 destination=destination_txt.getText().toString();
                 capacity=capacity_txt.getText().toString();
-                if(!v_type.isEmpty() && !v_maker.isEmpty() && !origin.isEmpty() && !destination.isEmpty() & !capacity.isEmpty()){
+                departtime=datetime_departure_txt.getText().toString();
+                if(!v_type.isEmpty() && !v_maker.isEmpty() && !origin.isEmpty() && !destination.isEmpty() && !capacity.isEmpty() && !departtime.isEmpty() ){
                     Vehicle vehicle=new Vehicle(VehicleType.SEDAN,v_maker,"-");
                     // Inflate the layout for this fragment
                     location_origin=new Location();
