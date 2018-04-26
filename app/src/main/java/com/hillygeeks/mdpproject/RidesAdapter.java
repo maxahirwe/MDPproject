@@ -75,7 +75,7 @@ public class RidesAdapter extends RecyclerView.Adapter<RidesAdapter.ViewHolder> 
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         final Ride ride=Rides.get(position);
@@ -138,6 +138,7 @@ public class RidesAdapter extends RecyclerView.Adapter<RidesAdapter.ViewHolder> 
                                 Application.RidesRef.child(ride.id).child("booked").setValue(true).addOnCompleteListener(completeListener);
                                 Application.RidesRef.child(ride.id).child("provider").setValue(Application.user.userid).addOnCompleteListener(completeListener);
                                 Toast.makeText(holder.btn_take.getContext(),"Ride Offered,Check Bookings",Toast.LENGTH_SHORT).show();
+                                removeAt(position);
                                 FindRideFragment.mAdapter.notifyDataSetChanged();
                             } else {
                                 Toast.makeText(holder.btn_take.getContext(),"Operation Not Allowed",Toast.LENGTH_SHORT).show();
@@ -186,8 +187,8 @@ public class RidesAdapter extends RecyclerView.Adapter<RidesAdapter.ViewHolder> 
                                 Application.RidesRef.child(ride.id).child("booked").setValue(true).addOnCompleteListener(completeListener);
                                 Application.RidesRef.child(ride.id).child("client").setValue(Application.user.userid).addOnCompleteListener(completeListener);
                                 Toast.makeText(holder.btn_take.getContext(),"Ride Booked,Check Bookings",Toast.LENGTH_SHORT).show();
+                                removeAt(position);
                                 FindRideFragment.mAdapter.notifyDataSetChanged();
-
                             } else {
                                 Toast.makeText(holder.btn_take.getContext(),"Operation Not Allowed",Toast.LENGTH_SHORT).show();
                             }
@@ -269,5 +270,10 @@ public class RidesAdapter extends RecyclerView.Adapter<RidesAdapter.ViewHolder> 
         return msg.toUpperCase();
     }
 
+    public void removeAt(int position) {
+        FindRideFragment.Ridesset.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, FindRideFragment.Ridesset.size());
+    }
 
 }
