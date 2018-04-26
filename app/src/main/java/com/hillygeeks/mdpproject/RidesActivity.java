@@ -136,13 +136,8 @@ public class RidesActivity extends AppCompatActivity {
 
                 String to=notificationPayload.getData().getFrom();
                 String from= FirebaseInstanceId.getInstance().getToken();
-                NotificationPayload confirmRidePayload=new NotificationPayload(from,
-                        to,
-                        getResources().getString(R.string.rideConformer),
-                        message);
-                NotificationSenderAPI notificationSenderAPI=new NotificationSenderAPI(getApplicationContext(),confirmRidePayload);
-                notificationSenderAPI.execute();
-
+                String rideType=getResources().getString(R.string.rideConformer);
+                Application.SendNotificaion(from, to, rideType, message, getApplicationContext());
                 finish();
             }
         };

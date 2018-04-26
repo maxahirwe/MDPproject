@@ -112,17 +112,39 @@ public class RidesAdapter extends RecyclerView.Adapter<RidesAdapter.ViewHolder> 
             holder.btn_offer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //TODO:mark as booked,list as offered by this user and send notification
-                  OnCompleteListener<Void> completeListener=  new OnCompleteListener<Void>() {
+
+                    Application.UsersRef.child(ride.getCreator()).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            Log.d("data","Changed Value");
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            User user = dataSnapshot.getValue(User.class);
+                            String from = FirebaseInstanceId.getInstance().getToken();
+                            String to=user.getDevice_id();
+                            String rideType = context.getResources().getString(R.string.rideConformer);
+                            String message=context.getResources().getString(R.string.notificationMessage2);
+                            Application.SendNotificaion(from, to, rideType, message,  context);
+
+                            //TODO:mark as booked,list as offered by this user and send notification
+                            OnCompleteListener<Void> completeListener=  new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Log.d("data","Changed Value");
+                                }
+                            };
+                            Application.RidesRef.child(ride.id).child("type").setValue(RideType.Booking).addOnCompleteListener(completeListener);
+                            Application.RidesRef.child(ride.id).child("booked").setValue(true).addOnCompleteListener(completeListener);
+                            Application.RidesRef.child(ride.id).child("provider").setValue(Application.user.userid).addOnCompleteListener(completeListener);
+                            //Notification should be sent Herento the client
+
                         }
-                    };
-                   Application.RidesRef.child(ride.id).child("type").setValue(RideType.Booking).addOnCompleteListener(completeListener);
-                   Application.RidesRef.child(ride.id).child("booked").setValue(true).addOnCompleteListener(completeListener);
-                   Application.RidesRef.child(ride.id).child("provider").setValue(Application.user.userid).addOnCompleteListener(completeListener);
-                   //Notification should be sent Herento the client
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+
 
 
                 }
