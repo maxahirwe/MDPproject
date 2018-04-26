@@ -162,9 +162,6 @@ public class RidesAdapter extends RecyclerView.Adapter<RidesAdapter.ViewHolder> 
             holder.btn_take.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
-
-
                     Application.UsersRef.child(ride.getCreator()).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
