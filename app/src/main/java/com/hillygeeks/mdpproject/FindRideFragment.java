@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.hillygeeks.mdpproject.DataClasses.Location;
 import com.hillygeeks.mdpproject.DataClasses.Ride;
 import com.hillygeeks.mdpproject.DataClasses.RideType;
@@ -122,7 +123,7 @@ public class FindRideFragment extends Fragment {
                 super.onScrolled(recyclerView, dx, dy);
             }
         });
-        mAdapter = new RidesAdapter(Ridesset);
+        mAdapter = new RidesAdapter(Ridesset, getContext());
         mRecyclerView.setAdapter(mAdapter);
 
         reset_filter_btn.setOnClickListener(new View.OnClickListener() {

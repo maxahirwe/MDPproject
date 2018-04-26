@@ -132,6 +132,12 @@
         <item>Volvo</item>
     </string-array>
 
+    <string name="keyOpenAlertDlg">Open Alert Dlg</string>
+    <string name="notificationMessage1">Some body wants to book your ride, do you want to continue?</string>
+    <string name="notificationMessage2">Your ride is confirmed.</string>
+    <string name="notificationMessage3">Requested ride is not available.</string>
+    <string name="rideRequester">Ride Request</string>
+    <string name="rideConformer">Ride Conformer</string>
     <string name="notificationAPI">https://fcm.googleapis.com/fcm/send</string>
     <string name="serverKey">key=AAAAJMJ6N7A:APA91bGGwpQfeNcyB0OZxDHGeuWcgnYP_8L2mqNzuLsrkwMk_wULnUti9aTywRD1MgiyiTDOXr9_oZhPvhzbnme2CmQQLz58UzjHA05OgM3pu4QR463wFiZtP3vbQMmw23RnkCl7SRsS</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.hillygeeks.mdpproject;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,11 +19,19 @@ import com.google.firebase.database.ValueEventListener;
 import com.hillygeeks.mdpproject.DataClasses.Ride;
 import com.hillygeeks.mdpproject.DataClasses.RideType;
 import com.hillygeeks.mdpproject.DataClasses.User;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.hillygeeks.mdpproject.MessagingService.NotificationPayload;
+import com.hillygeeks.mdpproject.MessagingService.NotificationSenderAPI;
+
 
 import java.util.List;
 //https://github.com/codepath/android_guides/wiki/Endless-Scrolling-with-AdapterViews-and-RecyclerView
 public class RidesAdapter extends RecyclerView.Adapter<RidesAdapter.ViewHolder> {
     private List<Ride> Rides;
+
+    private Context context;
+
+
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -47,8 +56,9 @@ public class RidesAdapter extends RecyclerView.Adapter<RidesAdapter.ViewHolder> 
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public RidesAdapter(List<Ride> myDataset) {
+    public RidesAdapter(List<Ride> myDataset, Context context) {
         Rides = myDataset;
+        this.context=context;
     }
 
     // Create new views (invoked by the layout manager)
@@ -123,18 +133,37 @@ public class RidesAdapter extends RecyclerView.Adapter<RidesAdapter.ViewHolder> 
             holder.btn_take.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //TODO: mark as booked,listed as given and send notification
 
-                    OnCompleteListener<Void> completeListener=  new OnCompleteListener<Void>() {
+                    Application.UsersRef.child(ride.getCreator()).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            Log.d("data","Changed Value");
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            User user = dataSnapshot.getValue(User.class);
+                            String from = FirebaseInstanceId.getInstance().getToken();
+                            String to=user.getDevice_id();
+                            String rideType = context.getResources().getString(R.string.rideRequester);
+                            String message=context.getResources().getString(R.string.notificationMessage1);
+                            Application.SendNotificaion(from, to, rideType, message,  context);
+
+                            //TODO: mark as booked,listed as given and send notification
+                            OnCompleteListener<Void> completeListener=  new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Log.d("data","Changed Value");
+                                }
+                            };
+                            Application.RidesRef.child(ride.id).child("type").setValue(RideType.Booking).addOnCompleteListener(completeListener);
+                            Application.RidesRef.child(ride.id).child("booked").setValue(true).addOnCompleteListener(completeListener);
+                            Application.RidesRef.child(ride.id).child("client").setValue(Application.user.userid).addOnCompleteListener(completeListener);
+                            //Notification should be sent Here
+
                         }
-                    };
-                    Application.RidesRef.child(ride.id).child("type").setValue(RideType.Booking).addOnCompleteListener(completeListener);
-                    Application.RidesRef.child(ride.id).child("booked").setValue(true).addOnCompleteListener(completeListener);
-                    Application.RidesRef.child(ride.id).child("client").setValue(Application.user.userid).addOnCompleteListener(completeListener);
-                    //Notification should be sent Here
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
 
 
                 }
