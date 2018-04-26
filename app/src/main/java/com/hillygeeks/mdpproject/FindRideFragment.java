@@ -43,7 +43,7 @@ import java.util.List;
  */
 public class FindRideFragment extends Fragment {
     private RecyclerView mRecyclerView;
-    private RidesAdapter mAdapter;
+    protected static RidesAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     List<Ride> Ridesset;
     List<Ride> Rideset_filtered=new ArrayList<>();
@@ -123,7 +123,7 @@ public class FindRideFragment extends Fragment {
                 super.onScrolled(recyclerView, dx, dy);
             }
         });
-        mAdapter = new RidesAdapter(Ridesset, getContext());
+        mAdapter = new RidesAdapter(Ridesset);
         mRecyclerView.setAdapter(mAdapter);
 
         reset_filter_btn.setOnClickListener(new View.OnClickListener() {
@@ -242,13 +242,23 @@ public class FindRideFragment extends Fragment {
                 // A new comment has been added, ad it to the displayed list
                 Ride ride = dataSnapshot.getValue(Ride.class);
                 ride.id=dataSnapshot.getKey();
-                if (!Ridesset.contains(ride) && ride.getType()==type){
+                if (!Ridesset.contains(ride) && ride.getType()==type && ride.getType()!=RideType.Booking){
                     Log.d("new data", "added onChildAdded:" + dataSnapshot.getKey());
                     Ridesset.add(ride);
                     Collections.sort(Ridesset);
                     mAdapter.setRides(Ridesset);
                     mAdapter.notifyDataSetChanged();
-                }else{
+                }else if(!Ridesset.contains(ride) && ride.getType()==type && ride.getType()==RideType.Booking){
+                        //check if that ride is of that particular user
+                    if (ride.getClient().equalsIgnoreCase(Application.user.userid) || ride.getProvider().equalsIgnoreCase(Application.user.userid)) {
+                        Log.d("new data", "added onChildAdded:" + dataSnapshot.getKey());
+                        Ridesset.add(ride);
+                        Collections.sort(Ridesset);
+                        mAdapter.setRides(Ridesset);
+                        mAdapter.notifyDataSetChanged();
+                    }
+                }
+                else{
                     Log.d("duplicate data", "already in list ride:" + dataSnapshot.getKey());
                     mAdapter.setRides(Ridesset);
                     mAdapter.notifyDataSetChanged();
@@ -309,9 +319,9 @@ public class FindRideFragment extends Fragment {
         if(!origin.isEmpty() && !destination.isEmpty() && !date.isEmpty()){
             Log.d("status"," filter,all fields are filled");
             for(Ride ride:copyRidesset()){
-                if(ride.getOrigin().getAddress().toLowerCase().contains(origin)
-                        && ride.getDestination().getAddress().toLowerCase().contains(destination)
-                        && ride.getDepart_datetime().toLowerCase().contains(date)){
+                if(ride.getOrigin().getAddress().toLowerCase().contains(origin.toLowerCase())
+                        && ride.getDestination().getAddress().toLowerCase().contains(destination.toLowerCase())
+                        && ride.getDepart_datetime().toLowerCase().contains(date.toLowerCase())){
                     Rideset_filtered.add(ride);
                 }
             }
@@ -322,8 +332,8 @@ public class FindRideFragment extends Fragment {
         else if(!origin.isEmpty() && !destination.isEmpty() && date.isEmpty()){
             Log.d("status"," filter,destination and origin are filled");
             for(Ride ride:copyRidesset()){
-                if(ride.getOrigin().getAddress().toLowerCase().contains(origin)
-                        && ride.getDestination().getAddress().toLowerCase().contains(destination) ){
+                if(ride.getOrigin().getAddress().toLowerCase().contains(origin.toLowerCase().toLowerCase())
+                        && ride.getDestination().getAddress().toLowerCase().contains(destination.toLowerCase()) ){
                     Rideset_filtered.add(ride);
                 }
             }
@@ -334,7 +344,7 @@ public class FindRideFragment extends Fragment {
         else if(!origin.isEmpty() && destination.isEmpty() && date.isEmpty()){
             Log.d("status"," filter,origin is filled");
             for(Ride ride:copyRidesset()){
-                if(ride.getOrigin().getAddress().toLowerCase().contains(origin)){
+                if(ride.getOrigin().getAddress().toLowerCase().contains(origin.toLowerCase())){
                     Rideset_filtered.add(ride);
                 }
             }
@@ -345,7 +355,7 @@ public class FindRideFragment extends Fragment {
         else if(origin.isEmpty() && !destination.isEmpty() && date.isEmpty()){
             Log.d("status"," filter,destination is filled");
             for(Ride ride:copyRidesset()){
-                if(ride.getDestination().getAddress().toLowerCase().contains(destination)){
+                if(ride.getDestination().getAddress().toLowerCase().contains(destination.toLowerCase())){
                     Rideset_filtered.add(ride);
                 }
             }
@@ -355,7 +365,7 @@ public class FindRideFragment extends Fragment {
         else if(origin.isEmpty() && destination.isEmpty() && !date.isEmpty()){
             Log.d("status"," filter,date is filled");
             for(Ride ride:copyRidesset()){
-                if(ride.getDepart_datetime().toLowerCase().contains(date)){
+                if(ride.getDepart_datetime().toLowerCase().contains(date.toLowerCase())){
                     Rideset_filtered.add(ride);
                 }
             }

@@ -114,7 +114,6 @@ public class LoginActivity extends AppCompatActivity {
                     // Check if email is verified
                     if(user.isEmailVerified()){
                         //set the user class
-                        //TODO set the firebase messaging id
                         Application.user=new User(user.getEmail(), FirebaseInstanceId.getInstance().getToken());
                         Application.user.userid=user.getUid();
 

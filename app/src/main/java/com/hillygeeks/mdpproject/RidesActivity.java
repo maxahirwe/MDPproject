@@ -39,8 +39,8 @@ public class RidesActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        toolbar.setSubtitle(Application.user.getEmail());
-
+        String name=Application.sharedpreferences.getString("user_name","-"+"");
+        toolbar.setSubtitle(Application.user.getEmail()+name);
         viewPager = (ViewPager) findViewById(R.id.pager);
         setupViewPager(viewPager);
 
@@ -68,7 +68,6 @@ public class RidesActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId()==R.id.menu_main_logout){
-            //TODO:: implement logout of user
             FirebaseAuth.getInstance().signOut();
             Intent intent=new Intent(getApplicationContext(),LoginActivity.class);
             finish();

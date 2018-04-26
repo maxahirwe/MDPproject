@@ -103,7 +103,6 @@ public class RegisterActivity extends AppCompatActivity {
                             // Send verification email
                             sendVerificationEmail();
                             String user_key=FirebaseAuth.getInstance().getCurrentUser().getUid();
-                            //TODO set the firebase messaging id
                             User user=new User(email, FirebaseInstanceId.getInstance().getToken());
                             user.setPhone(phonenumber);
                             user.setName(name);
@@ -116,6 +115,7 @@ public class RegisterActivity extends AppCompatActivity {
                             //save last email in sharedpreference
                             SharedPreferences.Editor editor = Application.sharedpreferences.edit();
                             editor.putString("user_email", email);
+                            editor.putString("user_name", user.getName());
                             editor.commit();
                             FirebaseAuth.getInstance().signOut();
                             //redirect the user to the login screen

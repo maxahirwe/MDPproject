@@ -17,32 +17,26 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Creator:"
-            android:textAlignment="center"
-            android:textSize="12sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/txt_provider_name"
+            android:id="@+id/ride_text_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="-"
             android:textAlignment="center"
-            android:textSize="12sp" />
+            android:textSize="13sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="3dp"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginRight="3dp"
             android:text="Departs"
             android:textAlignment="center"
             android:textSize="12sp"
@@ -50,17 +44,18 @@
 
         <TextView
             android:id="@+id/txt_depart_time"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginRight="10dp"
             android:text="22/July/1997"
             android:textAlignment="center"
             android:textSize="12sp" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginRight="3dp"
+            android:gravity="end"
             android:text="Created"
             android:textAlignment="center"
             android:textSize="12sp"
@@ -68,9 +63,9 @@
 
         <TextView
             android:id="@+id/txt_created_time"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginRight="3dp"
             android:text="22/July/1997"
             android:textAlignment="center"
             android:textSize="12sp" />
@@ -92,7 +87,7 @@
             android:paddingLeft="20dp"
             android:singleLine="false"
             android:text="FairField"
-            android:textSize="13sp" />
+            android:textSize="12sp" />
 
         <LinearLayout
             android:layout_width="25dp"
@@ -122,7 +117,7 @@
             android:layout_weight="1"
             android:paddingLeft="20dp"
             android:text="Chicago"
-            android:textSize="13sp" />
+            android:textSize="12sp" />
 
     </LinearLayout>
 
@@ -135,6 +130,7 @@
         android:text="Cost Sharing"
         android:textSize="10sp"
         android:visibility="invisible" />
+
 
     <LinearLayout
         android:id="@+id/button_layout"
