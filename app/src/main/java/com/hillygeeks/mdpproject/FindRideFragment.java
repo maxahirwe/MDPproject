@@ -42,11 +42,11 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class FindRideFragment extends Fragment {
-    private RecyclerView mRecyclerView;
+    protected static RecyclerView mRecyclerView;
     protected static RidesAdapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-    List<Ride> Ridesset;
-    List<Ride> Rideset_filtered=new ArrayList<>();
+    protected static RecyclerView.LayoutManager mLayoutManager;
+    protected static List<Ride> Ridesset;
+    protected static List<Ride> Rideset_filtered=new ArrayList<>();
     EditText search_origin,search_destination,search_datetime;
     CheckBox filter_returning,filter_share_cost;
     Button reset_filter_btn, request_btn;
