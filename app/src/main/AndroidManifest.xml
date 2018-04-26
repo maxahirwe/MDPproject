@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".RidesActivity"> </activity>
+        <activity android:name=".RidesActivity"></activity>
 
         <service android:name=".MessagingService.NotificationReceiver">
             <intent-filter>
@@ -30,7 +30,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyC-ZHXyMbXzgBP_ch7XIdsoLh8LnJdv2bk"/>
+            android:value="AIzaSyC-ZHXyMbXzgBP_ch7XIdsoLh8LnJdv2bk" />
 
     </application>
 

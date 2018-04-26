@@ -73,6 +73,14 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+        TextView forgotPassword = (TextView) findViewById(R.id.textView2);
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ForgotPasswordDialog dialog = new ForgotPasswordDialog();
+                dialog.show(getSupportFragmentManager(), "dialog_password_reset");
+            }
+        });
 
     hideSoftKeyboard();
     }
