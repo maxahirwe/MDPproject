@@ -59,12 +59,12 @@ public class NotificationReceiver extends FirebaseMessagingService {
         //In case if the application is receiving multiple notification, we have to generate
         // unique id each time, otherwise we will loss all the unreaded old notifications
         // when the new notification comes in
-        int notificationId = (int) System.currentTimeMillis();
+        int notificationId = 0;//(int) System.currentTimeMillis();
 
         //Create a pending indent FLAG_ONE_SHOT: Flag indicating that this PendingIntent can be used only once
         PendingIntent pendingIntent=PendingIntent.getActivity(this, notificationId, intent, PendingIntent.FLAG_ONE_SHOT);
 
-        String notificationMessage=rideInfo.get("message");
+        String notificationMessage=notificationPayload.getData().getMessage();
         //Build push notification
         NotificationCompat.Builder notificationBuilder=new NotificationCompat.Builder(this);
         notificationBuilder.setContentTitle("Ride Share");
