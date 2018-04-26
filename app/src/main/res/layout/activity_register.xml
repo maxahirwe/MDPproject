@@ -36,7 +36,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="10dp"
             android:text="Registration"
-            android:textSize="15sp" />
+            android:textSize="34sp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -116,9 +116,18 @@
             android:layout_height="35dp"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
-            android:background="@android:color/holo_blue_light"
+            android:background="@drawable/blue_button"
             android:text="Register"
             android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/resnd_verification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:padding="10dp"
+            android:text="@string/resend_verification_email"
+            android:textColor="@color/link" />
 
         <ProgressBar
             android:id="@+id/progressBar"

@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -85,6 +86,14 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
+        TextView resend = (TextView) findViewById(R.id.resnd_verification);
+        resend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ResendVerificationDialog dialog = new ResendVerificationDialog();
+                dialog.show(getSupportFragmentManager(), "dialog_password_reset");
+            }
+        });
         hideSoftKeyboard();
     }
 
@@ -100,6 +109,7 @@ public class RegisterActivity extends AppCompatActivity {
                         if (task.isSuccessful()){
                             Log.d(TAG, "onComplete: AuthState: " + FirebaseAuth.getInstance().getCurrentUser().getUid());
                             Toast.makeText(RegisterActivity.this, "Account is created!", Toast.LENGTH_SHORT).show();
+
                             // Send verification email
                             sendVerificationEmail();
                             String user_key=FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -112,6 +122,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     Log.d("db status","User Saved");
                                 }
                             });
+
                             //save last email in sharedpreference
                             SharedPreferences.Editor editor = Application.sharedpreferences.edit();
                             editor.putString("user_email", email);
